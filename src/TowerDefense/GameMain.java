@@ -61,7 +61,7 @@ public class GameMain extends JFrame {
             Thread.sleep(timeLeft);
          } catch (InterruptedException ex){}
       }
-      // line duoi dang bi loi
+      // line dssuoi dang bi loi
       //public void gameUpdate(){};
       /*private void gameDraw(Graphics2D){
          switch (state){
