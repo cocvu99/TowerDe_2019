@@ -5,8 +5,8 @@ import java.awt.event.*;
 
 public class GameMain extends JFrame {
 
-   static final int CANVAS_WIDTH = 800;    // width and height of the game screen
-   static final int CANVAS_HEIGHT = 600;
+   static final int CANVAS_WIDTH = 768;    // width and height of the game screen
+   static final int CANVAS_HEIGHT = 576;
    static final int UPDATES_PER_SEC = 4;
    static final long UPDATE_PERIOD_NSEC = 1000000000L / UPDATES_PER_SEC;  // nanoseconds
 

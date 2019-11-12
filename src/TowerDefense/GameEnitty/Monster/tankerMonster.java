@@ -6,7 +6,7 @@ public class tankerMonster extends Monster {
     public tankerMonster(Point pos) {
         super(pos, "res/Monster/Monster3.png");
         this.HP     = 150;
-        this.speed  = 5;
+        this.speed  = 1;
         this.armor  = 10;
         this.reward = 50;
     }
