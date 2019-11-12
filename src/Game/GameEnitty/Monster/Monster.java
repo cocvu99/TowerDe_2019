@@ -1,12 +1,16 @@
 package Game.GameEnitty.Monster;
 
-import javax.swing.table.TableStringConverter;
+import Game.GameEnitty.Point;
+
+import java.awt.*;
 
 public abstract class Monster {
     protected int HP;
     protected int speed;
-    protected int protect;
+    protected int armor;
+    protected int reward;
     protected int Direction;
-
+    protected Point pos;
+    protected Image im;
 
 }
