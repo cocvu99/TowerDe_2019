@@ -1,8 +1,7 @@
 package TowerDefense;
 
+import TowerDefense.GameEnitty.Map.GameMap;
 import TowerDefense.GameEnitty.Map.Point;
-import TowerDefense.GameEnitty.Map.Road;
-import TowerDefense.GameEnitty.Map.Tile;
 import TowerDefense.GameEnitty.Monster.Monster;
 import TowerDefense.GameEnitty.Monster.normalMonster;
 import TowerDefense.GameEnitty.Monster.tankerMonster;
@@ -20,6 +19,7 @@ public class GameField extends JPanel implements Runnable {
     List<Monster> monsters = new ArrayList<Monster>();
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<Tower> towers = new ArrayList<Tower>();
+    List<GameMap> mapper = new ArrayList<GameMap>();
 
 
     public GameField() {
