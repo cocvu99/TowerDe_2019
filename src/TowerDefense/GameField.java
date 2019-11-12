@@ -1,8 +1,11 @@
 package TowerDefense;
 
+import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Map.Road;
 import TowerDefense.GameEnitty.Map.Tile;
 import TowerDefense.GameEnitty.Monster.Monster;
+import TowerDefense.GameEnitty.Monster.normalMonster;
+import TowerDefense.GameEnitty.Monster.tankerMonster;
 import TowerDefense.GameEnitty.Tower.Bullet;
 import TowerDefense.GameEnitty.Tower.Tower;
 
@@ -16,15 +19,14 @@ import java.util.List;
 public class GameField extends JPanel implements Runnable {
     List<Monster> monsters = new ArrayList<Monster>();
     List<Bullet> bullets = new ArrayList<Bullet>();
-    Bullet
     List<Tower> towers = new ArrayList<Tower>();
 
 
     public GameField() {
-        enemies.add(new Monster());
+        monsters.add(new normalMonster(new Point(0, 0)));
         Thread thread = new Thread(this);
         thread.start();
-        ImageIcon imageIcon = new ImageIcon("image/nen2.png");
+        /*ImageIcon imageIcon = new ImageIcon("image/nen2.png");
         image = imageIcon.getImage();
         addMouseListener(new MouseAdapter() {
             @Override
@@ -45,6 +47,8 @@ public class GameField extends JPanel implements Runnable {
                 }
             }
         });
+
+         */
     }
 
     public void paint(Graphics g) {
@@ -72,9 +76,10 @@ public class GameField extends JPanel implements Runnable {
     @Override
     public void run() {
         while (true) {
-
+            repaint();
+            this.monsters.add(new tankerMonster(new Point(0, 0)));
         }
-        }
+    }
         /*
         while (true){
             repaint();
@@ -121,8 +126,8 @@ public class GameField extends JPanel implements Runnable {
                             ex.printStackTrace();
             }
         }*/
-    }
-}
+
+
 /*
     public void checkImpact(){
         for (int i = 0; i< bullets.size()-1; i++) {
@@ -145,5 +150,6 @@ public class GameField extends JPanel implements Runnable {
             }
         }
     }
+  */
 
 }
