@@ -1,4 +1,4 @@
-package Game;
+package TowerDefense;
 import javax.swing.*;
 
 public class GameMain extends JFrame {

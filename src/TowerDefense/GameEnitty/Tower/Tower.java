@@ -1,5 +1,5 @@
-package Game.GameEnitty.Tower;
-import Game.GameEnitty.Point;
+package TowerDefense.GameEnitty.Tower;
+import TowerDefense.GameEnitty.Map.Point;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +14,8 @@ public abstract class Tower {
     protected Image im;
 
 
-    public Tower(int x, int y){
-        ImageIcon imageIcon = new ImageIcon("image/tower1.png");
+    public Tower(int x, int y, String fileName){
+        ImageIcon imageIcon = new ImageIcon(fileName);
         this.im = imageIcon.getImage();
         this.pos.setX(x);
         this.pos.setY(y);

@@ -1,4 +1,4 @@
-package Game.GameEnitty;
+package TowerDefense.GameEnitty.Map;
 
 public class Point {
     private int x;

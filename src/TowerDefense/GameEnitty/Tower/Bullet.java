@@ -1,4 +1,4 @@
-package Game.GameEnitty.Tower;
+package TowerDefense.GameEnitty.Tower;
 
 import javax.swing.*;
 import java.awt.*;

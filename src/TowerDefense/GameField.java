@@ -1,10 +1,10 @@
-package Game;
+package TowerDefense;
 
-import Game.GameEnitty.Map.Road;
-import Game.GameEnitty.Map.Tile;
-import Game.GameEnitty.Monster.Monster;
-import Game.GameEnitty.Tower.Bullet;
-import Game.GameEnitty.Tower.Tower;
+import TowerDefense.GameEnitty.Map.Road;
+import TowerDefense.GameEnitty.Map.Tile;
+import TowerDefense.GameEnitty.Monster.Monster;
+import TowerDefense.GameEnitty.Tower.Bullet;
+import TowerDefense.GameEnitty.Tower.Tower;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,22 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameField extends JPanel implements Runnable {
-
-
-    private Image image;
-    private int x=-50, y=-50, k=0, temp=0,over;
-    List<Monster> enemies = new ArrayList<Monster>();
-    List<Bullet> bullets = new ArrayList<Bullet>();Bullet
+    List<Monster> monsters = new ArrayList<Monster>();
+    List<Bullet> bullets = new ArrayList<Bullet>();
+    Bullet
     List<Tower> towers = new ArrayList<Tower>();
-    gameOver gameOver = new gameOver();
-    Road r = new Road();
-    Tile tile = new Tile();
-    private int knockEnemy=0;
-
-    private int wait = 0,wait1=0;
 
 
-    public GameField(){
+    public GameField() {
         enemies.add(new Monster());
         Thread thread = new Thread(this);
         thread.start();
@@ -39,15 +30,15 @@ public class GameField extends JPanel implements Runnable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                x=(int)e.getPoint().getX();
-                y=(int)e.getPoint().getY();
-                for (Tower tower: towers) {
-                    if (new Rectangle(x, y, 50, 50).intersects(new Rectangle(tower.getX(),tower.getY(), 50, 50))) {
+                x = (int) e.getPoint().getX();
+                y = (int) e.getPoint().getY();
+                for (Tower tower : towers) {
+                    if (new Rectangle(x, y, 50, 50).intersects(new Rectangle(tower.getX(), tower.getY(), 50, 50))) {
                         temp++;
                     }
                 }
                 Tower newTower = new Tower(x, y);
-                if (newTower.asRoad(x, y) && tile.getCoin() >= 100&&temp==0) {
+                if (newTower.asRoad(x, y) && tile.getCoin() >= 100 && temp == 0) {
                     towers.add(newTower);
                     k++;
                     tile.setCoin(tile.getCoin() - 100);
@@ -55,16 +46,18 @@ public class GameField extends JPanel implements Runnable {
             }
         });
     }
-    public void paint(Graphics g){
-        g.drawImage(image,0,0,this);
-        r.paint(g);
-        for(Enemy enemy: enemies) {
-            enemy.paint(g);
+
+    public void paint(Graphics g) {
+        //g.drawImage(image,0,0,this);
+        //r.paint(g);
+        for (Monster mons : monsters) {
+            mons.paint(g);
         }
-        for(Bullet bullet: bullets)
+        for (Bullet bullet : bullets)
             bullet.paint(g);
-        for(Tower tower: towers)
+        for (Tower tower : towers)
             tower.paint(g);
+        /*
         tile.paint(g);
 
         if(enemies.get(0).getX() >= 1000){
@@ -73,10 +66,16 @@ public class GameField extends JPanel implements Runnable {
         if(knockEnemy==50){
             gameOver.paint2(g);
         }
-
+        */
     }
+
     @Override
     public void run() {
+        while (true) {
+
+        }
+        }
+        /*
         while (true){
             repaint();
             if(wait>60) {
@@ -121,9 +120,10 @@ public class GameField extends JPanel implements Runnable {
             } catch (InterruptedException ex) {
                             ex.printStackTrace();
             }
-        }
+        }*/
     }
-
+}
+/*
     public void checkImpact(){
         for (int i = 0; i< bullets.size()-1; i++) {
                 Bullet bullet = bullets.get(i);
