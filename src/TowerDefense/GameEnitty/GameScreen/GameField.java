@@ -8,7 +8,8 @@ import TowerDefense.GameEnitty.Monster.normalMonster;
 import TowerDefense.GameEnitty.Monster.smallMonster;
 import TowerDefense.GameEnitty.Monster.tankerMonster;
 import TowerDefense.GameEnitty.Tower.BasicTower;
-import TowerDefense.GameEnitty.Tower.Bullet;
+
+import TowerDefense.GameEnitty.Tower.Bullet.Bullet;
 import TowerDefense.GameEnitty.Tower.Tower;
 import TowerDefense.GameEnitty.GameScreen.Button.basicTowerButton;
 
@@ -19,11 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameField extends JPanel implements Runnable {
-    List<Monster> monsters = new ArrayList<Monster>();
-    List<Bullet> bullets = new ArrayList<Bullet>();
-    List<Tower> towers = new ArrayList<Tower>();
-    List<MapObject> mapper = MapManager.updateMapper();
-    Tile tile = new Tile();
+    public static List<Monster> monsters = new ArrayList<Monster>();
+    public static List<Bullet> bullets = new ArrayList<Bullet>();
+    public static List<Tower> towers = new ArrayList<Tower>();
+    public static List<MapObject> mapper;
+
+    static {
+        try {
+            mapper = MapManager.updateMapper();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static Tile tile = new Tile();
     Thread thread;
 
     public GameField() throws IOException {
@@ -31,6 +41,7 @@ public class GameField extends JPanel implements Runnable {
         monsters.add(new tankerMonster(new Point(0, 64)));
         //monsters.add(new normalMonster(new Point(0,64)));
         towers.add(new BasicTower(new Point(0, 128)));
+        towers.add(new BasicTower(new Point(512, 300)));
 
         thread = new Thread(this);
         thread.start();
@@ -44,14 +55,18 @@ public class GameField extends JPanel implements Runnable {
         tile.paint(g);
 
         for (Monster mons : monsters) {
-            mons.paint(g);
             mons.move();
+            mons.paint(g);
         }
-        for (Bullet bullet : bullets)
+        for (Bullet bullet : bullets) {
+            bullet.move();
             bullet.paint(g);
+        }
 
-        for (Tower tower : towers)
+        for (Tower tower : towers) {
+            tower.fire();
             tower.paint(g);
+        }
 
     }
 
@@ -70,4 +85,9 @@ public class GameField extends JPanel implements Runnable {
     public void setMapper(List<MapObject> mapper) {
         this.mapper = mapper;
     }
+
+    public static List<Monster> getMonsters() {
+        return monsters;
+    }
+
 }
