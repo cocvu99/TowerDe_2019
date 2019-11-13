@@ -32,7 +32,7 @@ public class MapManager {
 
         MapManager.read();
 
-        for(int i=0; i<12; i++) {
+        for(int i=0; i<11; i++) {
             for (int j=0; j<16; j++) {
                 if (mapper[i].charAt(j) == '0') {
                     MapObject.add(new Mountain(new Point(j*64, i*64)));

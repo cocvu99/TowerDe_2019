@@ -31,37 +31,28 @@ public abstract class Monster extends JPanel {
         g.drawImage(im, pos.getX(), pos.getY(), this);
     }
 
+
+
     public void move() {
         int j = (this.pos.getX()) / 64 ;
         int i = (this.pos.getY()) / 64 ;
 
-        System.out.println(i+" "+j);
-
         try {
             if (MapManager.mapper[i].charAt(j + 1) != '0' && checker[i][j+1] == 0) {
                 //move right
-                System.out.println("Right");
                 this.pos.setX(this.pos.getX() + this.speed);
             }
             else if (MapManager.mapper[i + 1].charAt(j) != '0' && checker[i+1][j] ==0) {
                 //moveDown();
-                System.out.println("DOWN");
                 this.pos.setY(this.pos.getY() + this.speed);
             }
             else if (MapManager.mapper[i - 1].charAt(j) != '0' && checker[i-1][j] ==0) {
-                //moveUp();
                 System.out.println("up");
                 this.pos.setY(this.pos.getY() - this.speed);
             }
             else if (MapManager.mapper[i].charAt(j - 1) != '0' && checker[i][j-1] ==0) {
-                //moveLeft();
-                System.out.println("LEFT");
+                //moveLeft()
                 this.pos.setX(this.pos.getX() - this.speed);
-            }
-            else {
-                this.pos.setX(this.pos.getX()+speed);
-                this.pos.setY(this.pos.getY()+speed);
-                System.out.println("ARR");
             }
             checker[i][j] = 1;
         } catch (Exception e) {}

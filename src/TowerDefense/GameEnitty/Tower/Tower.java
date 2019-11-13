@@ -4,8 +4,7 @@ import TowerDefense.GameEnitty.Map.Point;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Tower {
-    protected int HP;
+public abstract class Tower extends JPanel{
     protected int speed;
     protected int range;
     protected int damage;
@@ -14,15 +13,14 @@ public abstract class Tower {
     protected Image im;
 
 
-    public Tower(int x, int y, String fileName){
+    public Tower(Point pos, String fileName){
         ImageIcon imageIcon = new ImageIcon(fileName);
         this.im = imageIcon.getImage();
-        this.pos.setX(x);
-        this.pos.setY(y);
+        this.pos= pos;
     }
 
-    public void paint(Graphics g){
-        g.drawImage(im,pos.getX(),pos.getY(),null);
+    public void paint(Graphics g) {
+        g.drawImage(im, pos.getX(), pos.getY(), this);
     }
 
 
