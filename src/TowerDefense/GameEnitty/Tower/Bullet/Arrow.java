@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Arrow extends Bullet {
-    public Arrow(Point from, Point to) {
-        super(from, to);
-        this.im = new ImageIcon("res/Bullet/arrow.png").getImage();
+    public Arrow(Point from, Point to, Monster target, int power) {
+        super(from, to, target, power);
+        this.im = new ImageIcon("res/Bullet/Fireball (1).png").getImage();
         this.speed = 5;
-        System.out.println("created");
     }
 
 

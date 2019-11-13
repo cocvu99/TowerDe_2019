@@ -1,5 +1,6 @@
 package TowerDefense.GameEnitty.Monster;
 
+import TowerDefense.GameEnitty.GameScreen.GameField;
 import TowerDefense.GameEnitty.Map.MapManager;
 import TowerDefense.GameEnitty.Map.Point;
 
@@ -37,12 +38,14 @@ public abstract class Monster extends JPanel {
 
 
     public void move() {
-        int j = (this.pos.getX()) / 64 ;
-        int i = (this.pos.getY()) / 64 ;
+        int j = (int) Math.ceil(this.pos.getX() / 64.0 - 0.3);
+        int i = (int) Math.ceil(this.pos.getY() / 64.0 - 0.3);
+
         try {
             if (MapManager.mapper[i + 1].charAt(j) != '0' && checker[i+1][j] ==0) {
                 //moveDown();
                 this.pos.setY(this.pos.getY() + this.speed);
+
             }
             else if ((i > 0 && MapManager.mapper[i - 1].charAt(j) != '0' && checker[i-1][j] ==0)) {
                 this.pos.setY(this.pos.getY() - this.speed);
@@ -65,27 +68,19 @@ public abstract class Monster extends JPanel {
     }
 
     public void damage(int damage) {
-        this.HP -= damage;
+        this.HP -= damage + this.armor;
+        if (HP <=0) GameField.monsters.remove(this);
     }
 
     public void drawHealthBar(Graphics g) {
-        final int radius = 16;
-        final int barMaxWidth = radius * 2;
-        int barHealth;
+        final int barMaxWidth = 48;
+        int barHealth = (int)Math.ceil(((double)this.HP / this.maxHP) * barMaxWidth);
+        System.out.println("["+this.HP+" "+barHealth+"]");
 
-        if (HP == HP) {
-            barHealth = barMaxWidth;
-
-        } else {
-            barHealth = (int) (((double) HP / (double) maxHP)
-                    * barMaxWidth);
-
-        }
-
-        g.setColor(Color.GRAY);
+        g.setColor(Color.gray);
         g.fillRect(((int) getPosition().getX()) + 12,
                 ((int) getPosition().getY()) , barMaxWidth, 5);
-        g.setColor(Color.GREEN);
+        g.setColor(Color.blue);
         g.fillRect(((int) getPosition().getX()+ 12) ,
                 ((int) getPosition().getY()) , barHealth, 5);
 
