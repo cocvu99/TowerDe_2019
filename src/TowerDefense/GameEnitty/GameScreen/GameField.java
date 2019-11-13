@@ -28,8 +28,9 @@ public class GameField extends JPanel implements Runnable {
     Thread thread;
 
     public GameField() throws IOException {
-        monsters.add(new smallMonster(new Point(0, 0)));
-        monsters.add(new tankerMonster(new Point(50, 50)));
+        monsters.add(new smallMonster(new Point(0, 64)));
+        //monsters.add(new tankerMonster(new Point(0, 64)));
+        //monsters.add(new normalMonster(new Point(0,64)));
         thread = new Thread(this);
         thread.start();
 
@@ -45,6 +46,7 @@ public class GameField extends JPanel implements Runnable {
         }
         for (Bullet bullet : bullets)
             bullet.paint(g);
+
         for (Tower tower : towers)
             tower.paint(g);
 

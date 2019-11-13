@@ -2,11 +2,8 @@ package TowerDefense.GameEnitty.Map;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
 
 public class Road extends MapObject {
-    Image im;
-    Point pos;
 
     public Road(Point pos) {
         ImageIcon icon =  new ImageIcon("res/map/road.png");

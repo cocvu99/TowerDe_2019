@@ -10,4 +10,5 @@ public class normalMonster extends Monster{
         this.armor  = 5;
         this.reward = 30;
     }
+
 }

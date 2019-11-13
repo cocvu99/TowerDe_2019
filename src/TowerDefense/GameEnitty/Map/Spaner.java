@@ -3,14 +3,16 @@ package TowerDefense.GameEnitty.Map;
 import javax.swing.*;
 import java.awt.*;
 
-public class Mountain extends MapObject {
+public class Spaner extends MapObject {
 
-    public Mountain(Point pos) {
-        ImageIcon icon =  new ImageIcon("res/map/mountain.png");
+    public Spaner(Point pos) {
+        ImageIcon icon =  new ImageIcon("res/map/spaner.png");
         this.im = icon.getImage();
         this.pos    = pos;
     }
+
     public void paint(Graphics g) {
         g.drawImage(this.im, this.pos.getX(), this.pos.getY(), this);
     }
+
 }

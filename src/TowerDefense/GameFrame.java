@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class GameFrame extends JFrame {
 
-    public static final int WINDOW_HEIGHT = 600;
-    public static final int WINDOW_WITH   = 800;
+    public static final int WINDOW_HEIGHT = 768;
+    public static final int WINDOW_WITH   = 1024;
     public static int GAME_LEVEL = 1;
 
     public enum GameState  {
@@ -28,7 +28,7 @@ public class GameFrame extends JFrame {
         setSize(WINDOW_WITH, WINDOW_HEIGHT);
         setTitle("Tower Defense");
         setLocationRelativeTo(null);
-        setResizable(false);
+        //setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         GameField gameField = new GameField();

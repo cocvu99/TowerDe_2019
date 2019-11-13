@@ -10,4 +10,6 @@ public class tankerMonster extends Monster {
         this.armor  = 10;
         this.reward = 50;
     }
+
+
 }

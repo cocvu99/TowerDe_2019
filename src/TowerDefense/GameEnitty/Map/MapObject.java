@@ -2,7 +2,6 @@ package TowerDefense.GameEnitty.Map;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
 
 public abstract class MapObject extends JPanel {
     protected Image im;

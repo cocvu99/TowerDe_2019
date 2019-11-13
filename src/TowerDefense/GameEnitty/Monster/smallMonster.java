@@ -10,4 +10,6 @@ public class smallMonster extends Monster {
         this.armor  = 0;
         this.reward = 10;
     }
+
+
 }
