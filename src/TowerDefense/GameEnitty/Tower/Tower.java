@@ -6,7 +6,6 @@ import TowerDefense.GameEnitty.Tower.Bullet.Arrow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tower extends JPanel{
@@ -16,6 +15,7 @@ public abstract class Tower extends JPanel{
     protected Image im;
     protected int range;
     protected int damage;
+    protected long lastFired;
 
     public Tower(Point pos, String fileName){
         ImageIcon imageIcon = new ImageIcon(fileName);
@@ -32,26 +32,8 @@ public abstract class Tower extends JPanel{
         drawRound(g);
     }
 
-    private long lastFired;
-    public void fire() {
-        long timeNow = System.currentTimeMillis();
-        if (timeNow - lastFired >= 500) {
-            lastFired = timeNow;
-            List<Monster> monsters = GameField.monsters;
-            for (int i = monsters.size() - 1; i >= 0; i--) {
+    public abstract void fire();
 
-                if (distance(monsters.get(i).getPosition(), this.pos) < (double) range) {
-                    GameField.bullets.add(new Arrow(
-                            new Point(this.pos.getX()+32, this.pos.getY()+32),
-                            monsters.get(i).getPosition(),
-                            monsters.get(i),
-                            this.damage
-                    ));
-                }
-            }
-        }
-
-    }
     public double distance(Point from, Point to){
         return Math.sqrt(
                 Math.pow((from.getX() - to.getX()), 2)

@@ -6,9 +6,11 @@ import TowerDefense.GameEnitty.Monster.Monster;
 import TowerDefense.GameEnitty.Monster.normalMonster;
 import TowerDefense.GameEnitty.Monster.smallMonster;
 import TowerDefense.GameEnitty.Monster.tankerMonster;
+import TowerDefense.GameEnitty.Tower.AdvanceTower;
 import TowerDefense.GameEnitty.Tower.BasicTower;
 
 import TowerDefense.GameEnitty.Tower.Bullet.Bullet;
+import TowerDefense.GameEnitty.Tower.KnightTrap;
 import TowerDefense.GameEnitty.Tower.Tower;
 
 import javax.swing.*;
@@ -37,9 +39,13 @@ public class GameField extends JPanel implements Runnable {
 
     public GameField() throws IOException {
 
-        towers.add(new BasicTower(new Point(0, 128)));
-        towers.add(new BasicTower(new Point(512, 300)));
-        towers.add(new BasicTower(new Point(12*64, 9*64)));
+        //towers.add(new BasicTower(new Point(0, 128)));
+        //towers.add(new BasicTower(new Point(512, 300)));
+        //towers.add(new BasicTower(new Point(12*64, 9*64)));
+        //towers.add(new AdvanceTower(new Point(4*64, 4*64)));
+        towers.add(new AdvanceTower(new Point(15*64, 7*64)));
+        towers.add(new KnightTrap(new Point(3*64, 4*64)));
+
 
         JButton basicTowerButton= new JButton(new ImageIcon("res/Map/basic_tower.png"));
         basicTowerButton.setBounds(0,64,64, 64);

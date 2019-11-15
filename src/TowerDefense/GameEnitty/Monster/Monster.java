@@ -65,9 +65,16 @@ public abstract class Monster extends JPanel {
         return pos;
     }
 
+    public Point getCentre() {
+        return new Point(pos.getX()+32, pos.getY()+32);
+    }
+
     public void damage(int damage) {
         this.HP -= (damage - this.armor);
-        if (HP <=0) GameField.monsters.remove(this);
+        if (HP <=0) {
+            this.pos = null;
+            GameField.monsters.remove(this);
+        }
     }
 
     public void drawHealthBar(Graphics g) {

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
+
     public static GameFrame gameFrame;
     public static GameField gameField;
 
