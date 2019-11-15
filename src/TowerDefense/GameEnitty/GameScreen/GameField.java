@@ -1,6 +1,5 @@
 package TowerDefense.GameEnitty.GameScreen;
 
-import TowerDefense.GameEnitty.GameScreen.Button.basicTowerButton;
 import TowerDefense.GameEnitty.Map.*;
 import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
@@ -11,13 +10,13 @@ import TowerDefense.GameEnitty.Tower.BasicTower;
 
 import TowerDefense.GameEnitty.Tower.Bullet.Bullet;
 import TowerDefense.GameEnitty.Tower.Tower;
-import TowerDefense.GameEnitty.GameScreen.Button.basicTowerButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GameField extends JPanel implements Runnable {
     public static List<Monster> monsters = new ArrayList<Monster>();
@@ -37,22 +36,30 @@ public class GameField extends JPanel implements Runnable {
     Thread thread;
 
     public GameField() throws IOException {
-        monsters.add(new smallMonster(new Point(0, 64)));
-        monsters.add(new tankerMonster(new Point(0, 64)));
-        monsters.add(new normalMonster(new Point(0,64)));
+
         towers.add(new BasicTower(new Point(0, 128)));
         towers.add(new BasicTower(new Point(512, 300)));
+        towers.add(new BasicTower(new Point(12*64, 9*64)));
+
+        JButton basicTowerButton= new JButton(new ImageIcon("res/Map/basic_tower.png"));
+        basicTowerButton.setBounds(0,64,64, 64);
+        add(basicTowerButton, BorderLayout.WEST);
+        basicTowerButton.setVisible(true);
+        //basicTowerButton.setIgnoreRepaint(true);
+        //basicTowerButton.setContentAreaFilled(false);
+
 
         thread = new Thread(this);
-        thread.start();
 
+        thread.start();
     }
 
     public void paint(Graphics g) {
-        for (MapObject map : mapper)
-            map.paint(g);
 
         tile.paint(g);
+
+        for (MapObject map : mapper)
+            map.paint(g);
 
         for (Monster mons : monsters) {
             mons.move();
@@ -66,12 +73,27 @@ public class GameField extends JPanel implements Runnable {
             bullets.get(i).paint(g);
             bullets.get(i).move();
         }
+    }
 
+    private long time = System.currentTimeMillis();
+    private int i = 0;
+    private  void createMonster(char c) {
+        System.out.println(c);
+        switch (c) {
+            case '1': monsters.add(new normalMonster(MapManager.spaner.getPos())); break;
+            case '2': monsters.add(new smallMonster(MapManager.spaner.getPos())); break;
+            case '3': monsters.add(new tankerMonster(MapManager.spaner.getPos())); break;
+        }
     }
 
     @Override
     public void run() {
         while (true) {
+            if (System.currentTimeMillis() - time > 1000 && i< MapManager.MonsterSpan.length()) {
+                createMonster(MapManager.MonsterSpan.charAt(i++));
+                time = System.currentTimeMillis();
+            }
+
             repaint();
             try {
                 thread.sleep(50);

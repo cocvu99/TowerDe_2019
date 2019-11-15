@@ -15,4 +15,7 @@ public class Spaner extends MapObject {
         g.drawImage(this.im, this.pos.getX(), this.pos.getY(), this);
     }
 
+    public Point getPos() {
+        return new Point(this.pos.getX(), this.pos.getY());
+    }
 }

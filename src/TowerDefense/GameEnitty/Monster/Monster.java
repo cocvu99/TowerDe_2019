@@ -6,7 +6,6 @@ import TowerDefense.GameEnitty.Map.Point;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 public abstract class Monster extends JPanel {
     protected int HP;
@@ -33,9 +32,8 @@ public abstract class Monster extends JPanel {
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
         drawHealthBar(g);
+        g.drawRect(pos.getX(), pos.getY(), 64, 64);
     }
-
-
 
     public void move() {
         int j = (int) Math.ceil(this.pos.getX() / 64.0 - 0.3);
@@ -68,14 +66,13 @@ public abstract class Monster extends JPanel {
     }
 
     public void damage(int damage) {
-        this.HP -= damage + this.armor;
+        this.HP -= (damage - this.armor);
         if (HP <=0) GameField.monsters.remove(this);
     }
 
     public void drawHealthBar(Graphics g) {
         final int barMaxWidth = 48;
         int barHealth = (int)Math.ceil(((double)this.HP / this.maxHP) * barMaxWidth);
-        System.out.println("["+this.HP+" "+barHealth+"]");
 
         g.setColor(Color.gray);
         g.fillRect(((int) getPosition().getX()) + 12,

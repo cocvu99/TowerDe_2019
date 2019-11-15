@@ -1,7 +1,6 @@
 //another GameMain
 package TowerDefense;
 
-import TowerDefense.GameEnitty.GameScreen.Button.basicTowerButton;
 import TowerDefense.GameEnitty.GameScreen.GameField;
 
 import javax.swing.*;
@@ -9,6 +8,8 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
+    public static GameFrame gameFrame;
+    public static GameField gameField;
 
     public static final int WINDOW_HEIGHT = 640;
     public static final int WINDOW_WITH   = 1324;
@@ -23,7 +24,7 @@ public class GameFrame extends JFrame {
         DESTROYING;
     }
 
-    static GameState gameState;
+    public static GameState gameState;
 
     public GameFrame() throws HeadlessException, IOException {
         setSize(WINDOW_WITH, WINDOW_HEIGHT);
@@ -33,13 +34,14 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        GameField gameField = new GameField();
-        //tùy vào state để thêm :3
+        gameField = new GameField();
         add(gameField);
+
     }
 
     public static void main(String[] args) throws IOException {
-        GameFrame frame = new GameFrame();
-        frame.setVisible(true);
+        gameFrame = new GameFrame();
+        gameState = GameState.PLAYING;
+        gameFrame.setVisible(true);
     }
 }

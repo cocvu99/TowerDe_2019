@@ -16,7 +16,6 @@ public abstract class Tower extends JPanel{
     protected Image im;
     protected int range;
     protected int damage;
-    protected long lastFired;
 
     public Tower(Point pos, String fileName){
         ImageIcon imageIcon = new ImageIcon(fileName);
@@ -25,23 +24,25 @@ public abstract class Tower extends JPanel{
         this.lastFired = System.currentTimeMillis();
     }
 
+    protected void drawRound(Graphics g) {
+        g.drawOval(this.pos.getX()-range/2+32,this.pos.getY()-range/2+32 , range, range);
+    }
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
+        drawRound(g);
     }
 
+    private long lastFired;
     public void fire() {
         long timeNow = System.currentTimeMillis();
-        if (timeNow - lastFired >100) {
+        if (timeNow - lastFired >= 500) {
             lastFired = timeNow;
             List<Monster> monsters = GameField.monsters;
-            for (Monster m : monsters) {
-                System.out.println(m.toString());
-            }
             for (int i = monsters.size() - 1; i >= 0; i--) {
-                //System.out.println(distance(monsters.get(i).getPosition(), this.pos) +" " +range);
+
                 if (distance(monsters.get(i).getPosition(), this.pos) < (double) range) {
                     GameField.bullets.add(new Arrow(
-                            this.pos,
+                            new Point(this.pos.getX()+32, this.pos.getY()+32),
                             monsters.get(i).getPosition(),
                             monsters.get(i),
                             this.damage

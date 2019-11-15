@@ -10,7 +10,10 @@ import java.util.List;
 
 public class MapManager {
 
+    public static Spaner spaner;
+    public static Target target;
     public static String[] mapper =new String[12];
+    public static String MonsterSpan;
 
     private static void read() throws IOException {
 
@@ -25,6 +28,10 @@ public class MapManager {
         for (int i=0; i<12; i++) {
             mapper[i] = reader.readLine();
         }
+
+        MonsterSpan = reader.readLine();
+        System.out.println(MonsterSpan);
+        reader.close();
     }
 
     public static List<MapObject> updateMapper() throws IOException {
@@ -41,10 +48,12 @@ public class MapManager {
                     MapObject.add(new Road(new Point(j*64, i*64)));
                 }
                 else if (mapper[i].charAt(j) == '8') {
-                    MapObject.add(new Spaner(new Point(j*64, i*64)));
+                    spaner =new Spaner(new Point(j*64, i*64));
+                    MapObject.add(spaner);
                 }
                 else if(mapper[i].charAt(j) == '9') {
-                    MapObject.add(new Target(new Point(j*64, i*64)));
+                    target = new Target(new Point(j*64, i*64));
+                    MapObject.add(target);
                 }
 
             }

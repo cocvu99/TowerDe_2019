@@ -14,7 +14,7 @@ public class BasicTower extends Tower {
         super(pos, "res/Map/basic_tower.png");
         this.price = 50;
         this.range = 256;
-        this.damage = 5;
+        this.damage = 100;
     }
 
 }
