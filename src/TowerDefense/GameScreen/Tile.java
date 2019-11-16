@@ -1,4 +1,4 @@
-package TowerDefense.GameEnitty.GameScreen;
+package TowerDefense.GameScreen;
 
 import javax.swing.*;
 import java.awt.*;

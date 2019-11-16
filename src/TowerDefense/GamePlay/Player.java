@@ -1,5 +1,6 @@
-package TowerDefense.GameEnitty.GameScreen;
+package TowerDefense.GamePlay;
 
+import TowerDefense.GameScreen.Tile;
 import TowerDefense.GameEnitty.Map.*;
 import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
@@ -7,7 +8,6 @@ import TowerDefense.GameEnitty.Monster.normalMonster;
 import TowerDefense.GameEnitty.Monster.smallMonster;
 import TowerDefense.GameEnitty.Monster.tankerMonster;
 import TowerDefense.GameEnitty.Tower.AdvanceTower;
-import TowerDefense.GameEnitty.Tower.BasicTower;
 
 import TowerDefense.GameEnitty.Tower.Bullet.Bullet;
 import TowerDefense.GameEnitty.Tower.KnightTrap;
@@ -18,9 +18,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class GameField extends JPanel implements Runnable {
+public class Player  extends JPanel implements Runnable {
     public static List<Monster> monsters = new ArrayList<Monster>();
     public static List<Bullet> bullets = new ArrayList<Bullet>();
     public static List<Tower> towers = new ArrayList<Tower>();
@@ -37,7 +36,7 @@ public class GameField extends JPanel implements Runnable {
     static Tile tile = new Tile();
     Thread thread;
 
-    public GameField() throws IOException {
+    public Player() throws IOException {
 
         //towers.add(new BasicTower(new Point(0, 128)));
         //towers.add(new BasicTower(new Point(512, 300)));

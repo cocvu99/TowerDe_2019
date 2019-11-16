@@ -1,6 +1,6 @@
 package TowerDefense.GameEnitty.Monster;
 
-import TowerDefense.GameEnitty.GameScreen.GameField;
+import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.MapManager;
 import TowerDefense.GameEnitty.Map.Point;
 
@@ -73,7 +73,7 @@ public abstract class Monster extends JPanel {
         this.HP -= (damage - this.armor);
         if (HP <=0) {
             this.pos = null;
-            GameField.monsters.remove(this);
+            Player.monsters.remove(this);
         }
     }
 

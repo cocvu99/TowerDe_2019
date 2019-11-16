@@ -1,12 +1,8 @@
 package TowerDefense.GameEnitty.Tower;
-import TowerDefense.GameEnitty.GameScreen.GameField;
 import TowerDefense.GameEnitty.Map.Point;
-import TowerDefense.GameEnitty.Monster.Monster;
-import TowerDefense.GameEnitty.Tower.Bullet.Arrow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public abstract class Tower extends JPanel{
 
@@ -29,7 +25,7 @@ public abstract class Tower extends JPanel{
     }
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
-        drawRound(g);
+        //drawRound(g);
     }
 
     public abstract void fire();

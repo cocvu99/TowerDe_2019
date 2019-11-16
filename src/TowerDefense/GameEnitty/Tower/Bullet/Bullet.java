@@ -1,14 +1,13 @@
 package TowerDefense.GameEnitty.Tower.Bullet;
 
-import TowerDefense.GameEnitty.GameScreen.GameField;
+import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
-import TowerDefense.GameFrame;
+import TowerDefense.GamePlay.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.security.PublicKey;
 
 public abstract class Bullet extends JPanel {
     protected int speed;
@@ -35,13 +34,13 @@ public abstract class Bullet extends JPanel {
 
     public void move() {
         if (to == null) {
-            GameField.bullets.remove(this);
+            Player.bullets.remove(this);
             return;
         }
         if (System.currentTimeMillis() - time <=50) return;
         time = System.currentTimeMillis();
 
-        if (target == null) GameField.bullets.remove(this);
+        if (target == null) Player.bullets.remove(this);
 
         this.pos.setX(this.pos.getX() + dau(this.pos, to).getX() * speed);
         this.pos.setY(this.pos.getY() + dau(this.pos, to).getY() * speed);
@@ -55,13 +54,13 @@ public abstract class Bullet extends JPanel {
         );
 
         //kiểm tra va chạm
-        for (Monster mon : GameField.monsters)  {
+        for (Monster mon : Player.monsters)  {
             if(range.contains(new java.awt.Point(
                     mon.getPosition().getX()+ 32,
                     mon.getPosition().getY() +32)))
             {
                 mon.damage(power);
-                GameField.bullets.remove(this);
+                Player.bullets.remove(this);
                 break;
             }
         }
@@ -69,7 +68,7 @@ public abstract class Bullet extends JPanel {
         if (this.pos.getX() > GameFrame.WINDOW_WITH ||
                 this.pos.getY() > GameFrame.WINDOW_HEIGHT ||
                 this.pos.getX() < 0 ||
-                this.pos.getY() <0) GameField.bullets.remove(this);
+                this.pos.getY() <0) Player.bullets.remove(this);
     }
 
     public void paint(Graphics g) {

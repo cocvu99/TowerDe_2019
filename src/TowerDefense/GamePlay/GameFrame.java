@@ -1,7 +1,5 @@
 //another GameMain
-package TowerDefense;
-
-import TowerDefense.GameEnitty.GameScreen.GameField;
+package TowerDefense.GamePlay;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +8,7 @@ import java.io.IOException;
 public class GameFrame extends JFrame {
 
     public static GameFrame gameFrame;
-    public static GameField gameField;
+    public static Player player;
 
     public static final int WINDOW_HEIGHT = 640;
     public static final int WINDOW_WITH   = 1324;
@@ -35,8 +33,8 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        gameField = new GameField();
-        add(gameField);
+        player = new Player();
+        add(player);
 
     }
 

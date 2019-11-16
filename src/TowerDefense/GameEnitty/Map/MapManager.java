@@ -1,6 +1,6 @@
 package TowerDefense.GameEnitty.Map;
 
-import TowerDefense.GameFrame;
+import TowerDefense.GamePlay.GameFrame;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

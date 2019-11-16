@@ -1,6 +1,5 @@
 package TowerDefense.GameEnitty.Tower.Bullet;
 
-import TowerDefense.GameEnitty.GameScreen.GameField;
 import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
 
