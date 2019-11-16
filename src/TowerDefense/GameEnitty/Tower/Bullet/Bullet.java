@@ -36,7 +36,7 @@ public abstract class Bullet extends JPanel {
 
     public void move() {
 
-        if (to == null) {
+        if (target == null) {
             Player.bullets.remove(this);
             return;
         }

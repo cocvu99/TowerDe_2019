@@ -25,6 +25,7 @@ public class Target extends MapObject {
         Rectangle2D.Double targetArea = new Rectangle2D.Double(this.pos.getX(),this.pos.getY(),64,64);
         if (targetArea.contains(new java.awt.Point(mon.getCentre().getX()+32, mon.getCentre().getY()+32))) {
             Player.Heart--;
+
             Player.monsters.remove(mon);
             if (Player.Heart == 0 ) GameFrame.gameState = GameFrame.GameState.LOSING;
             return true;

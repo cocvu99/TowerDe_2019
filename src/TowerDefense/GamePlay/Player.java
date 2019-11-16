@@ -30,7 +30,7 @@ public class Player  extends JPanel implements Runnable {
     public static int Heart;
     public static boolean endWave = false;
 
-    static {
+    public static void loadMapper() {
         try {
             mapper = MapManager.updatePlayMapper();
         } catch (IOException e) {

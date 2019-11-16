@@ -60,10 +60,4 @@ public class MapManager {
 
         return MapObject;
     }
-
-    public static List<MapObject> updateStartScreen() throws IOException {
-        List<MapObject> MapObject = new ArrayList<>();
-
-        return MapObject;
-    }
 }
