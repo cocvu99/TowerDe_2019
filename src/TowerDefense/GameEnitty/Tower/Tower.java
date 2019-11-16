@@ -19,6 +19,7 @@ public abstract class Tower extends JPanel{
         this.pos= pos;
         this.lastFired = System.currentTimeMillis();
     }
+    
 
     protected void drawRound(Graphics g) {
         g.drawOval(this.pos.getX()-range/2+32,this.pos.getY()-range/2+32 , range, range);
@@ -37,4 +38,15 @@ public abstract class Tower extends JPanel{
         );
     }
 
+    public void setPos(int x, int y) {
+        this.pos.setX(x);
+        this.pos.setY(y);
+    }
+    public Image getIm() {
+        return this.im;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }

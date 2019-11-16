@@ -5,6 +5,8 @@ import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
 import TowerDefense.GameEnitty.Tower.Bullet.Rock;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class KnightTrap extends Tower {
@@ -14,6 +16,7 @@ public class KnightTrap extends Tower {
         this.range = 2*64;
         this.damage = 150;
     }
+
 
     public void fire() {
         long timeNow = System.currentTimeMillis();

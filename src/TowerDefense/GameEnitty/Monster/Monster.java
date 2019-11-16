@@ -1,5 +1,6 @@
 package TowerDefense.GameEnitty.Monster;
 
+import TowerDefense.GameEnitty.Map.GameMap;
 import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.MapManager;
 import TowerDefense.GameEnitty.Map.Point;
@@ -36,6 +37,9 @@ public abstract class Monster extends JPanel {
     }
 
     public void move() {
+
+        if (MapManager.target.isTouched(this)) return;
+
         int j = (int) Math.ceil(this.pos.getX() / 64.0 - 0.3);
         int i = (int) Math.ceil(this.pos.getY() / 64.0 - 0.3);
 
@@ -74,6 +78,7 @@ public abstract class Monster extends JPanel {
         if (HP <=0) {
             this.pos = null;
             Player.monsters.remove(this);
+            Player.Money += this.reward;
         }
     }
 

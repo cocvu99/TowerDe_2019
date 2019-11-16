@@ -2,35 +2,37 @@ package TowerDefense.GamePlay;
 
 import TowerDefense.GameScreen.Tile;
 import TowerDefense.GameEnitty.Map.*;
-import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
 import TowerDefense.GameEnitty.Monster.normalMonster;
 import TowerDefense.GameEnitty.Monster.smallMonster;
 import TowerDefense.GameEnitty.Monster.tankerMonster;
-import TowerDefense.GameEnitty.Tower.AdvanceTower;
 
 import TowerDefense.GameEnitty.Tower.Bullet.Bullet;
-import TowerDefense.GameEnitty.Tower.KnightTrap;
 import TowerDefense.GameEnitty.Tower.Tower;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class Player  extends JPanel implements Runnable {
     public static List<Monster> monsters = new ArrayList<Monster>();
     public static List<Bullet> bullets = new ArrayList<Bullet>();
     public static List<Tower> towers = new ArrayList<Tower>();
     public static List<MapObject> mapper;
+    public static int Money;
+    public static int Heart;
+    public static boolean endWave = false;
 
     static {
         try {
-            mapper = MapManager.updateMapper();
+            mapper = MapManager.updatePlayMapper();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,36 +42,50 @@ public class Player  extends JPanel implements Runnable {
     Thread thread;
 
     public Player() throws IOException {
-        addMouseListener(new MouseAdapter(){
-            public void MousePressed(MouseEvent e) {
-                System.out.println("Pressed at: "+ e.getX() + " " + e.getY());
-            }
-        } );
+
+        Money = 200;
+        Heart = 10;
+
         thread = new Thread(this);
         thread.start();
     }
 
     public void paint(Graphics g) {
+        //tùy vào gamestate
+        if (GameFrame.gameState == GameFrame.GameState.PLAYING) {
+            for (MapObject map : mapper)
+                map.paint(g);
 
-        tile.paint(g);
+            tile.paint(g);
 
-        for (MapObject map : mapper)
-            map.paint(g);
+            for (Tower tower : towers) {
+                tower.fire();
+                tower.paint(g);
+            }
 
-        for (Tower tower : towers) {
-            tower.fire();
-            tower.paint(g);
+            for (Monster mons : monsters) {
+                mons.move();
+                mons.paint(g);
+            }
+
+            for (int i = bullets.size() - 1; i >= 0; i--) {
+                bullets.get(i).paint(g);
+                bullets.get(i).move();
+            }
+
+            if (GameFrame.hodingTower != null)
+                g.drawImage(GameFrame.hodingTower.getIm(),
+                        (int) getMousePosition().getX(),
+                        (int) getMousePosition().getY(), null);
         }
 
-        for (Monster mons : monsters) {
-            mons.move();
-            mons.paint(g);
-        }
-
-        for (int i=bullets.size()-1; i>=0; i--) {
-            bullets.get(i).paint(g);
-            bullets.get(i).move();
-        }
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Consolas", Font.BOLD, 20));
+        g.drawString(String.valueOf(Money), 1124, 135);
+        g.drawString(String.valueOf(Heart), 1124, 183);
+        g.drawString("50", 1124, 250);
+        g.drawString("100", 1124, 310);
+        g.drawString("200", 1124, 380);
     }
 
     private long time = System.currentTimeMillis();
@@ -87,7 +103,11 @@ public class Player  extends JPanel implements Runnable {
     public void run() {
         while (true) {
             if (System.currentTimeMillis() - time > 1000 && i< MapManager.MonsterSpan.length()) {
-                createMonster(MapManager.MonsterSpan.charAt(i++));
+                try {
+                    createMonster(MapManager.MonsterSpan.charAt(i++));
+                }catch (StringIndexOutOfBoundsException e) {
+                    endWave = true;
+                }
                 time = System.currentTimeMillis();
             }
 

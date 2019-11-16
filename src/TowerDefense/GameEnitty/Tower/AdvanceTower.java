@@ -5,6 +5,8 @@ import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
 import TowerDefense.GameEnitty.Tower.Bullet.FireBall;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class AdvanceTower extends Tower {
@@ -15,6 +17,7 @@ public class AdvanceTower extends Tower {
         this.range = 64*4;
         this.damage = 150;
     }
+
 
     private long lastFired;
     public void fire() {

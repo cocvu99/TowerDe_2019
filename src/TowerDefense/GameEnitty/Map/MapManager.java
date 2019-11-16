@@ -1,6 +1,7 @@
 package TowerDefense.GameEnitty.Map;
 
 import TowerDefense.GamePlay.GameFrame;
+import TowerDefense.GamePlay.Player;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,28 +16,23 @@ public class MapManager {
     public static String[] mapper =new String[12];
     public static String MonsterSpan;
 
-    private static void read() throws IOException {
-
+    private static void read(int Nlines, String file) throws IOException {
         BufferedReader reader = new BufferedReader(
-                new FileReader(
-                        "res/Map/level/level"
-                                + GameFrame.GAME_LEVEL
-                                +".txt"
-                )
-        );
-
-        for (int i=0; i<12; i++) {
+                new FileReader(file));
+        for (int i=0; i<Nlines; i++) {
             mapper[i] = reader.readLine();
         }
-
+        Player.endWave = false;
         MonsterSpan = reader.readLine();
         reader.close();
     }
 
-    public static List<MapObject> updateMapper() throws IOException {
+    public static List<MapObject> updatePlayMapper() throws IOException {
         List<MapObject> MapObject = new ArrayList<>();
 
-        MapManager.read();
+        MapManager.read(12, "res/Map/level/level"
+                + GameFrame.GAME_LEVEL
+                +".txt");
 
         for(int i=0; i<11; i++) {
             for (int j=0; j<16; j++) {
@@ -61,4 +57,9 @@ public class MapManager {
         return MapObject;
     }
 
+    public static List<MapObject> updateStartScreen() throws IOException {
+        List<MapObject> MapObject = new ArrayList<>();
+
+        return MapObject;
+    }
 }

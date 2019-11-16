@@ -35,11 +35,7 @@ public abstract class Bullet extends JPanel {
     private long time = System.currentTimeMillis();
 
     public void move() {
-        if (to == null) {
-            System.out.println("removed");
-            Player.bullets.remove(this);
-            return;
-        }
+        if (Player.monsters.isEmpty()) Player.bullets.clear();
         if (System.currentTimeMillis() - time <=50) return;
         time = System.currentTimeMillis();
 

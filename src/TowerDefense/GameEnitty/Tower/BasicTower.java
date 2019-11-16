@@ -5,6 +5,8 @@ import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
 import TowerDefense.GameEnitty.Tower.Bullet.Arrow;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class BasicTower extends Tower {
@@ -15,6 +17,7 @@ public class BasicTower extends Tower {
         this.range = 64*3;
         this.damage = 100;
     }
+
 
     public void fire() {
         long timeNow = System.currentTimeMillis();
