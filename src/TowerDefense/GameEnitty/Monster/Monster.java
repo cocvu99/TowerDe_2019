@@ -32,7 +32,7 @@ public abstract class Monster extends JPanel {
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
         drawHealthBar(g);
-        g.drawRect(pos.getX(), pos.getY(), 64, 64);
+        //g.drawRect(pos.getX(), pos.getY(), 64, 64);
     }
 
     public void move() {
@@ -62,7 +62,7 @@ public abstract class Monster extends JPanel {
     }
 
     public Point getPosition() {
-        return pos;
+        return this.pos;
     }
 
     public Point getCentre() {

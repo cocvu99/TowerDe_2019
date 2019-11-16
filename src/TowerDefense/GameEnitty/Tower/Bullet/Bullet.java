@@ -28,12 +28,15 @@ public abstract class Bullet extends JPanel {
         Point res = new Point(1, 1);
         if (from.getX() - to.getX() > 0) res.setX(-1);
         if (from.getY() - to.getY() > 0) res.setY(-1);
+        if (from.getX() - to.getY() == 0) res.setX(0);
+        if (from.getY() - to.getY() == 0) res.setY(0);
         return res;
     }
     private long time = System.currentTimeMillis();
 
     public void move() {
         if (to == null) {
+            System.out.println("removed");
             Player.bullets.remove(this);
             return;
         }
@@ -45,19 +48,23 @@ public abstract class Bullet extends JPanel {
         this.pos.setX(this.pos.getX() + dau(this.pos, to).getX() * speed);
         this.pos.setY(this.pos.getY() + dau(this.pos, to).getY() * speed);
 
-        System.out.println(pos.getX()+" "+pos.getY());
+        //this.pos.setX((int) (this.pos.getX() + dau(this.pos, to).getX() * speed *(1+ distance(this.pos, to.center()))));
+        //this.pos.setY((int) (this.pos.getY() + dau(this.pos, to).getY() * speed *(1+ distance(this.pos, to.center()))));
+
+
+        //System.out.println(pos.getX()+" "+pos.getY());
 
         Ellipse2D.Double range = new Ellipse2D.Double(
-                this.pos.getX() + 16,
-                this.pos.getY() + 16,
-                80, 80
+                this.pos.getX() - 16,
+                this.pos.getY() - 16,
+                64, 64
         );
 
         //kiểm tra va chạm
         for (Monster mon : Player.monsters)  {
             if(range.contains(new java.awt.Point(
-                    mon.getPosition().getX()+ 32,
-                    mon.getPosition().getY() +32)))
+                    mon.getPosition().getX() + 32,
+                    mon.getPosition().getY() + 32)))
             {
                 mon.damage(power);
                 Player.bullets.remove(this);
@@ -74,14 +81,16 @@ public abstract class Bullet extends JPanel {
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
 
-        /* DEBUG
+        /* //DEBUG
         g.drawRect(pos.getX(), pos.getY(), 24, 14);
         g.drawOval(
-                this.pos.getX() ,
-                this.pos.getY() ,
-                80, 80
+                this.pos.getX() -16,
+                this.pos.getY() -16,
+                64, 64
         );
+
          */
+
     }
 
     public static double distance(Point from, Point to){

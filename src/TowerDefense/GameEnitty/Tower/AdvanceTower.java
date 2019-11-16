@@ -12,7 +12,7 @@ public class AdvanceTower extends Tower {
     public AdvanceTower(Point pos){
         super(pos, "res/Map/advand_tower.png");
         this.price = 100;
-        this.range = 64*5;
+        this.range = 64*4;
         this.damage = 150;
     }
 

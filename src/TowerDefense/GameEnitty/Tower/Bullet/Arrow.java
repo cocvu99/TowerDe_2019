@@ -9,7 +9,7 @@ public class Arrow extends Bullet {
     public Arrow(Point from, Point to, Monster target, int power) {
         super(from, to, target, power);
         this.im = new ImageIcon("res/Bullet/bullet2.png").getImage();
-        this.speed = 5;
+        this.speed = 4;
     }
 
 }

@@ -30,7 +30,6 @@ public class MapManager {
         }
 
         MonsterSpan = reader.readLine();
-        System.out.println(MonsterSpan);
         reader.close();
     }
 

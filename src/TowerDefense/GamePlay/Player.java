@@ -15,6 +15,9 @@ import TowerDefense.GameEnitty.Tower.Tower;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,25 +40,12 @@ public class Player  extends JPanel implements Runnable {
     Thread thread;
 
     public Player() throws IOException {
-
-        //towers.add(new BasicTower(new Point(0, 128)));
-        //towers.add(new BasicTower(new Point(512, 300)));
-        //towers.add(new BasicTower(new Point(12*64, 9*64)));
-        //towers.add(new AdvanceTower(new Point(4*64, 4*64)));
-        towers.add(new AdvanceTower(new Point(15*64, 7*64)));
-        towers.add(new KnightTrap(new Point(3*64, 4*64)));
-
-
-        JButton basicTowerButton= new JButton(new ImageIcon("res/Map/basic_tower.png"));
-        basicTowerButton.setBounds(0,64,64, 64);
-        add(basicTowerButton, BorderLayout.WEST);
-        basicTowerButton.setVisible(true);
-        //basicTowerButton.setIgnoreRepaint(true);
-        //basicTowerButton.setContentAreaFilled(false);
-
-
+        addMouseListener(new MouseAdapter(){
+            public void MousePressed(MouseEvent e) {
+                System.out.println("Pressed at: "+ e.getX() + " " + e.getY());
+            }
+        } );
         thread = new Thread(this);
-
         thread.start();
     }
 
@@ -66,14 +56,16 @@ public class Player  extends JPanel implements Runnable {
         for (MapObject map : mapper)
             map.paint(g);
 
-        for (Monster mons : monsters) {
-            mons.move();
-            mons.paint(g);
-        }
         for (Tower tower : towers) {
             tower.fire();
             tower.paint(g);
         }
+
+        for (Monster mons : monsters) {
+            mons.move();
+            mons.paint(g);
+        }
+
         for (int i=bullets.size()-1; i>=0; i--) {
             bullets.get(i).paint(g);
             bullets.get(i).move();
