@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 public class GameMain extends JFrame {
 
-   static final int CANVAS_WIDTH = 768;    // width and height of the game screen
+   /*static final int CANVAS_WIDTH = 768;    // width and height of the game screen
    static final int CANVAS_HEIGHT = 576;
    static final int UPDATES_PER_SEC = 4;
    static final long UPDATE_PERIOD_NSEC = 1000000000L / UPDATES_PER_SEC;  // nanoseconds
@@ -14,9 +14,9 @@ public class GameMain extends JFrame {
       INITIALIZED, PLAYING, PAUSED, GAMEOVER, DESTROYED;
    }
    static GameState state;
-   //private GameCanvas canvas;
+   private GameCanvas canvas;
 
-   /*public GameMain() {
+   public GameMain() {
       // Initialize the game objects
       gameInit();
 
@@ -28,7 +28,7 @@ public class GameMain extends JFrame {
       // Other UI components such as button, score board, if any.
       // ......
 
-   }*/
+   }
    public void gameInit() { state = GameState.INITIALIZED; }
 
    public void gameShutdown(){ }
@@ -49,9 +49,9 @@ public class GameMain extends JFrame {
       long beginTime, timeTaken, timeLeft;
       while (state!=GameState.GAMEOVER){
          beginTime = System.nanoTime();
-         /*if (state == GameState.PLAYING){ //not paused
+         if (state == GameState.PLAYING){ //not paused
             gameUpdate();
-         }*/
+         }
          repaint();
 
          timeTaken = System.nanoTime() - beginTime;
@@ -63,16 +63,16 @@ public class GameMain extends JFrame {
       }
       // line dssuoi dang bi loi
       //public void gameUpdate(){};
-      /*private void gameDraw(Graphics2D){
+      private void gameDraw(Graphics2D){
          switch (state){
             case INITIALIZED: break;
             case PLAYING:  break;
             case PAUSED: break;
             case GAMEOVER: break;
          }
-      }*/
+      }
       
-      /* gameKeyPressed dang loi do chua co doi tuong
+      //gameKeyPressed dang loi do chua co doi tuong
       public void gameKeyPressed(int keyCode){
          switch (keyCode){
             case KeyEvent.VK_UP:
@@ -88,7 +88,7 @@ public class GameMain extends JFrame {
                // ......
                break;
          }
-      }   */
+      }
 
       abstract class GameCanvas extends JPanel implements KeyListener{
          //CONSTRUCTOR
@@ -114,17 +114,18 @@ public class GameMain extends JFrame {
             gameKeyPressed(e.getKeyCode());
          }*/
 
-         @Override
-         public void keyReleased(KeyEvent e) { }
+   //Override
+   /*public void keyReleased(KeyEvent e) {
+   }
 
-         @Override
-         public void keyTyped(KeyEvent e) { }
-         }
-      }
-   public static void main(String[] args) {
+   //Override
+   public void keyTyped(KeyEvent e) {
+   }*/
+
+   /*public static void main(String[] args) {
       // Use the event dispatch thread to build the UI for thread-safety.
       SwingUtilities.invokeLater(new Runnable() {
-         @Override
+         //Override
          public void run() {
             JFrame frame = new JFrame();
             // Set the content-pane of the JFrame to an instance of main JPanel
@@ -135,18 +136,17 @@ public class GameMain extends JFrame {
             frame.setLocationRelativeTo(null); // center the application window
             frame.setVisible(true);            // show it
          }
-      });
-   }
-   //public static void main(String[] args) {
+      }); */
+      public static void main (String[]args){
 
-      // test game framework nen bo // vao duoi day
-      /*JFrame frame = new JFrame();
-      GameField gameField= new GameField();;
+         // test game framework nen bo // vao duoi day
+      JFrame frame = new JFrame();
+      JFrame gameField= new JFrame();;
       frame.setSize(1116, 639);
       frame.setTitle(" TOWER DEFENSE ");
       frame.setVisible(true);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setLocation(150, 0);
-      frame.add(gameField); */
-   //}
+      frame.add(gameField);
+      }
 }
