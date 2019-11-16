@@ -7,6 +7,7 @@ import TowerDefense.GameEnitty.Tower.Bullet.Rock;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 public class KnightTrap extends Tower {

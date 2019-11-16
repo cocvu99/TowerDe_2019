@@ -1,6 +1,7 @@
 package TowerDefense.GameEnitty.Map;
 
 import TowerDefense.GameEnitty.Monster.Monster;
+import TowerDefense.GamePlay.GameFrame;
 import TowerDefense.GamePlay.Player;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class Target extends MapObject {
         if (targetArea.contains(new java.awt.Point(mon.getCentre().getX()+32, mon.getCentre().getY()+32))) {
             Player.Heart--;
             Player.monsters.remove(mon);
+            if (Player.Heart == 0 ) GameFrame.gameState = GameFrame.GameState.LOSING;
             return true;
         }
         return false;

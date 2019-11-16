@@ -30,9 +30,32 @@ public class GameFrame extends JFrame implements MouseListener {
     public static Rectangle2D.Double advanceTowerArea = new Rectangle2D.Double(1060,205+64,64,64);
     public static Rectangle2D.Double knightTrapTowerArea = new Rectangle2D.Double(1060,205+128,64,64);
 
+    public static Rectangle2D.Double startButton
+            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2,
+                GameFrame.WINDOW_HEIGHT/2, 128, 64);
+
+
+    public static Rectangle2D.Double RestartButton
+            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2,
+            GameFrame.WINDOW_HEIGHT/2, 128, 64);
+
+    public static Rectangle2D.Double quitButton
+            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2,
+            GameFrame.WINDOW_HEIGHT/2, 128, 64);
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (gameState == GameState.LOSING || gameState == GameState.WINNING) {
+            if (quitButton.contains(new java.awt.Point(e.getX(), e.getY()))) {
+                this.dispose();
+            }
+            if (RestartButton.contains(new java.awt.Point(e.getX(), e.getY()))); {
+                gameState = GameState.STARTING;
+            }
+        }
+        else if (gameState == GameState.STARTING) {
+            gameState = GameState.PLAYING;
+        }
 
     }
 
@@ -90,7 +113,7 @@ public class GameFrame extends JFrame implements MouseListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        gameState = GameState.PLAYING;
+        gameState = GameState.STARTING;
 
         addMouseListener(this);
 

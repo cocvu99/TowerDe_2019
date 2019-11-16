@@ -51,8 +51,20 @@ public class Player  extends JPanel implements Runnable {
     }
 
     public void paint(Graphics g) {
-        //tùy vào gamestate
-        if (GameFrame.gameState == GameFrame.GameState.PLAYING) {
+        if (GameFrame.gameState == GameFrame.GameState.STARTING) {
+            g.fillRect(GameFrame.WINDOW_WITH/2 - 64,
+                    GameFrame.WINDOW_HEIGHT/2 - 32, 128, 64);
+        }
+
+        else if (GameFrame.gameState == GameFrame.GameState.WINNING ||
+                GameFrame.gameState == GameFrame.GameState.LOSING) {
+
+            g.fillRect(GameFrame.WINDOW_WITH/2 - 64,
+                    GameFrame.WINDOW_HEIGHT/2, 128, 64);
+            g.fillRect(GameFrame.WINDOW_WITH/2 + 64,
+                    GameFrame.WINDOW_HEIGHT/2, 128, 64);
+        }
+        else if (GameFrame.gameState == GameFrame.GameState.PLAYING) {
             for (MapObject map : mapper)
                 map.paint(g);
 

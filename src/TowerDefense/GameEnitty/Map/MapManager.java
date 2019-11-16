@@ -17,8 +17,12 @@ public class MapManager {
     public static String MonsterSpan;
 
     private static void read(int Nlines, String file) throws IOException {
-        BufferedReader reader = new BufferedReader(
-                new FileReader(file));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(
+                    new FileReader(file));
+        } catch (Exception e) {GameFrame.gameState = GameFrame.GameState.WINNING;}
+        
         for (int i=0; i<Nlines; i++) {
             mapper[i] = reader.readLine();
         }

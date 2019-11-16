@@ -49,4 +49,9 @@ public abstract class Tower extends JPanel{
     public int getPrice() {
         return price;
     }
+
+    public Point getCentre() {
+        return new Point(pos.getX()+32, pos.getY()+32);
+    }
+
 }
