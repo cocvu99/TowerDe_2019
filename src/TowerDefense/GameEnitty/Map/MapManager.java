@@ -25,7 +25,7 @@ public class MapManager {
         } catch (Exception e) {
             GameFrame.gameState = GameFrame.GameState.WINNING;
         }
-        
+
         for (int i=0; i<Nlines; i++) {
             mapper[i] = reader.readLine();
         }

@@ -40,8 +40,8 @@ public abstract class Monster extends JPanel {
     public void move() throws Exception{
         if (MapManager.target.isTouched(this)) return;
 
-        int j = (this.getCentre().getX())/ 64;
-        int i = (this.getCentre().getY())/ 64;
+        int j = (this.pos.getX() + 32)/ 64;
+        int i = (this.pos.getY() + 32)/ 64;
 
         try {
             if (MapManager.mapper[i + 1].charAt(j) != '0' && checker[i+1][j] ==0) {

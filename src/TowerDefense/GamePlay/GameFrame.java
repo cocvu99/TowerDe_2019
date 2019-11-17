@@ -22,7 +22,7 @@ public class GameFrame extends JFrame implements MouseListener {
 
     public static final int WINDOW_HEIGHT = 640;
     public static final int WINDOW_WITH   = 1324;
-    public static int GAME_LEVEL = 1;
+    public static int GAME_LEVEL = 4;
 
     public static Tower hodingTower;
 

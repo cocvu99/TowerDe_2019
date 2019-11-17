@@ -1,11 +1,8 @@
 package TowerDefense.GamePlay;
 
+import TowerDefense.GameEnitty.Monster.*;
 import TowerDefense.GameScreen.Tile;
 import TowerDefense.GameEnitty.Map.*;
-import TowerDefense.GameEnitty.Monster.Monster;
-import TowerDefense.GameEnitty.Monster.normalMonster;
-import TowerDefense.GameEnitty.Monster.smallMonster;
-import TowerDefense.GameEnitty.Monster.tankerMonster;
 
 import TowerDefense.GameEnitty.Tower.Bullet.Bullet;
 import TowerDefense.GameEnitty.Tower.Tower;
@@ -84,8 +81,11 @@ public class Player  extends JPanel implements Runnable {
                 g.drawString("You Won!", 500, 600);
             }
 
-            loadMapper();
-
+            try {
+                loadMapper();
+            } catch (Exception e) {
+                System.out.println("PLAYER: "+e.getMessage());
+            }
             g.setColor(Color.WHITE);
             g.fillRect(GameFrame.WINDOW_WITH/2 - 256 - 100,
                     GameFrame.WINDOW_HEIGHT/2, 128, 64);
@@ -157,6 +157,8 @@ public class Player  extends JPanel implements Runnable {
             case '1': monsters.add(new normalMonster(MapManager.spaner.getPos())); break;
             case '2': monsters.add(new smallMonster(MapManager.spaner.getPos())); break;
             case '3': monsters.add(new tankerMonster(MapManager.spaner.getPos())); break;
+            case '4': monsters.add(new bossMonster(MapManager.spaner.getPos())); break;
+            case ' ': break;
         }
     }
 
@@ -166,7 +168,7 @@ public class Player  extends JPanel implements Runnable {
             if (System.currentTimeMillis() - time > 1000 && i< MapManager.MonsterSpan.length()) {
                 createMonster(MapManager.MonsterSpan.charAt(i++));
                 time = System.currentTimeMillis();
-                System.out.println("player.java: "+i);
+                //System.out.println("player.java: "+i);
             }
 
             repaint();
