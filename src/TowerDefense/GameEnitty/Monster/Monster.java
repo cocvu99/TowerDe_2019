@@ -1,6 +1,7 @@
 package TowerDefense.GameEnitty.Monster;
 
 import TowerDefense.GameEnitty.Map.GameMap;
+import TowerDefense.GamePlay.GameFrame;
 import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.MapManager;
 import TowerDefense.GameEnitty.Map.Point;
@@ -36,12 +37,11 @@ public abstract class Monster extends JPanel {
         //g.drawRect(pos.getX(), pos.getY(), 64, 64);
     }
 
-    public void move() {
-
+    public void move() throws Exception{
         if (MapManager.target.isTouched(this)) return;
 
-        int j = (int) Math.ceil(this.pos.getX() / 64.0 - 0.3);
-        int i = (int) Math.ceil(this.pos.getY() / 64.0 - 0.3);
+        int j = (this.getCentre().getX())/ 64;
+        int i = (this.getCentre().getY())/ 64;
 
         try {
             if (MapManager.mapper[i + 1].charAt(j) != '0' && checker[i+1][j] ==0) {
@@ -65,19 +65,30 @@ public abstract class Monster extends JPanel {
         } catch (Exception e) {}
     }
 
+    public void Remove() {
+
+        Player.monsters.remove(this);
+
+        if (Player.monsters.isEmpty()) {
+            Player.bullets.clear();
+            GameFrame.GAME_LEVEL++;
+            GameFrame.gameState = GameFrame.GameState.STARTING;
+        }
+    }
+
     public Point getPosition() {
         return this.pos;
     }
 
     public Point getCentre() {
-        return new Point(pos.getX()+32, pos.getY()+32);
+        return new Point(this.pos.getX()+32, this.pos.getY()+32);
     }
 
     public void damage(int damage) {
         this.HP -= (damage - this.armor);
         if (HP <=0) {
             this.pos = null;
-            Player.monsters.remove(this);
+            this.Remove();
             Player.Money += this.reward;
         }
     }
@@ -94,4 +105,5 @@ public abstract class Monster extends JPanel {
                 ((int) getPosition().getY()) , barHealth, 5);
 
     }
+
 }

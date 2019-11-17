@@ -21,12 +21,20 @@ public class Target extends MapObject {
         g.drawImage(this.im, this.pos.getX(), this.pos.getY(), this);
     }
 
-    public boolean isTouched(Monster mon) {
-        Rectangle2D.Double targetArea = new Rectangle2D.Double(this.pos.getX(),this.pos.getY(),64,64);
-        if (targetArea.contains(new java.awt.Point(mon.getCentre().getX()+32, mon.getCentre().getY()+32))) {
-            Player.Heart--;
+    public boolean isTouched(Monster mon) throws Exception{
+        if (mon == null) return false;
+        if (mon.getPosition() == Point.ErrPoint) return false;
 
-            Player.monsters.remove(mon);
+        Rectangle2D.Double targetArea = new Rectangle2D.Double(
+                mon.getPosition().getX(),mon.getPosition().getY(),64,64
+        );
+        if (targetArea.contains(new java.awt.Point(this.pos.getX(), this.pos.getY())) ||
+                targetArea.contains(new java.awt.Point(this.pos.getX()+64, this.pos.getY()+64)) ||
+                targetArea.contains(new java.awt.Point(this.pos.getX()+64, this.pos.getY())) ||
+                targetArea.contains(new java.awt.Point(this.pos.getX(), this.pos.getY()+64))
+        ) {
+            Player.Heart--;
+            mon.Remove();
             if (Player.Heart == 0 ) GameFrame.gameState = GameFrame.GameState.LOSING;
             return true;
         }

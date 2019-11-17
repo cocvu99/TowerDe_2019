@@ -15,7 +15,7 @@ public class AdvanceTower extends Tower {
         super(pos, "res/Map/advand_tower.png");
         this.price = 100;
         this.range = 64*4;
-        this.damage = 150;
+        this.damage = 200;
     }
 
 

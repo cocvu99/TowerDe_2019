@@ -15,7 +15,7 @@ public class KnightTrap extends Tower {
         super(pos, "res/Map/Knight Post Front (1).png");
         this.price = 200;
         this.range = 2*64;
-        this.damage = 150;
+        this.damage = 250;
     }
 
 
@@ -24,7 +24,10 @@ public class KnightTrap extends Tower {
         if (timeNow - lastFired >= 500) {
             lastFired = timeNow;
             List<Monster> monsters = Player.monsters;
+            //System.out.println("Knightrtap.java: moster size"+monsters.size());
+
             for (int i = monsters.size() - 1; i >= 0; i--) {
+                //System.out.println("KnightTrap.java: " + monsters.get(i).toString());
                 if (distance(monsters.get(i).getCentre(), this.pos) < (double) range) {
                     Player.bullets.add(new Rock(
                             new Point(this.pos.getX() + 32, this.pos.getY() + 32),

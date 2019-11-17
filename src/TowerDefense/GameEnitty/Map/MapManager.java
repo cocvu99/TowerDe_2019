@@ -21,12 +21,15 @@ public class MapManager {
         try {
             reader = new BufferedReader(
                     new FileReader(file));
-        } catch (Exception e) {GameFrame.gameState = GameFrame.GameState.WINNING;}
+
+        } catch (Exception e) {
+            GameFrame.gameState = GameFrame.GameState.WINNING;
+        }
         
         for (int i=0; i<Nlines; i++) {
             mapper[i] = reader.readLine();
         }
-        Player.endWave = false;
+
         MonsterSpan = reader.readLine();
         reader.close();
     }

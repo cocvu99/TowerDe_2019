@@ -26,21 +26,17 @@ public class GameFrame extends JFrame implements MouseListener {
 
     public static Tower hodingTower;
 
-    public static Rectangle2D.Double basicTowerArea = new Rectangle2D.Double(1060,205,64,64);
-    public static Rectangle2D.Double advanceTowerArea = new Rectangle2D.Double(1060,205+64,64,64);
-    public static Rectangle2D.Double knightTrapTowerArea = new Rectangle2D.Double(1060,205+128,64,64);
-
-    public static Rectangle2D.Double startButton
-            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2,
-                GameFrame.WINDOW_HEIGHT/2, 128, 64);
+    public static Rectangle2D.Double basicTowerArea = new Rectangle2D.Double(1060,225,64,64);
+    public static Rectangle2D.Double advanceTowerArea = new Rectangle2D.Double(1060,225+64+5,64,64);
+    public static Rectangle2D.Double knightTrapTowerArea = new Rectangle2D.Double(1060,245+128,64,64);
 
 
     public static Rectangle2D.Double RestartButton
-            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2,
+            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2 + 256,
             GameFrame.WINDOW_HEIGHT/2, 128, 64);
 
     public static Rectangle2D.Double quitButton
-            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2,
+            = new Rectangle2D.Double(GameFrame.WINDOW_WITH/2 - 256 - 100,
             GameFrame.WINDOW_HEIGHT/2, 128, 64);
 
     @Override
@@ -74,14 +70,22 @@ public class GameFrame extends JFrame implements MouseListener {
         int x = (e.getX()/64)*64;
         int y = (e.getY()/64)*64;
 
-        hodingTower.setPos(x, y);
+        if (hodingTower != null)
+            hodingTower.setPos(x, y);
+        try {
+            if (MapManager.mapper[y / 64].charAt(x / 64) == '0') {
+                if (Player.Money - hodingTower.getPrice() >= 0) {
 
-        if (MapManager.mapper[y/64].charAt(x/64) == '0') {
-            if (Player.Money - hodingTower.getPrice() >= 0) {
-                Player.towers.add(hodingTower);
-                Player.Money -= hodingTower.getPrice();
+                    //.println(x+" "+y+" "+hodingTower.toString());
+
+                    Player.towers.add(hodingTower);
+                    Player.Money -= hodingTower.getPrice();
+                }
+                hodingTower = null;
             }
-            hodingTower = null;
+        } catch (Exception exception) {
+            hodingTower =null;
+            //System.out.println(exception.getMessage());
         }
 
     }

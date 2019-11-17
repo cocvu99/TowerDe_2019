@@ -1,5 +1,6 @@
 package TowerDefense.GameEnitty.Tower.Bullet;
 
+import TowerDefense.GameEnitty.Map.MapManager;
 import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
@@ -8,6 +9,7 @@ import TowerDefense.GamePlay.GameFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.io.IOException;
 
 public abstract class Bullet extends JPanel {
     protected int speed;
@@ -34,14 +36,14 @@ public abstract class Bullet extends JPanel {
     }
     private long time = System.currentTimeMillis();
 
-    public void move() {
+    public void move() throws InterruptedException, IOException {
 
-        if (target == null) {
+        if (to == Point.ErrPoint) {
             Player.bullets.remove(this);
             return;
         }
 
-        if (Player.monsters.isEmpty()) Player.bullets.clear();
+
         if (System.currentTimeMillis() - time <=50) return;
         time = System.currentTimeMillis();
 
@@ -68,8 +70,8 @@ public abstract class Bullet extends JPanel {
                     mon.getPosition().getX() + 32,
                     mon.getPosition().getY() + 32)))
             {
-                mon.damage(power);
                 Player.bullets.remove(this);
+                mon.damage(power);
                 break;
             }
         }
