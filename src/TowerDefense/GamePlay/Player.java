@@ -186,18 +186,18 @@ public class Player  extends JPanel implements Runnable {
         SoundLoader.loop("background.wav");
 
         while (true) {
-            //if (!pause) {
+            try {
                 if (System.currentTimeMillis() - time > 1000 && i < MapManager.MonsterSpan.length()) {
                     createMonster(MapManager.MonsterSpan.charAt(i++));
                     time = System.currentTimeMillis();
                 }
-                repaint();
-            //}
+                System.out.println(i+" "+ MapManager.MonsterSpan.length());
 
-            try {
+                repaint();
+
                 thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Player.java[run]" + e.getMessage());
             }
         }
     }

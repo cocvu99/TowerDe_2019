@@ -14,7 +14,7 @@ public class bossMonster extends Monster {
         this.HP     = 6000;
         this.speed  = 1;
         this.armor  = 15;
-        this.reward = 6000;
+        this.reward = 100;
         this.maxHP  = HP;
     }
 
