@@ -13,10 +13,10 @@ import java.io.IOException;
 
 public abstract class Bullet extends JPanel {
     protected int speed;
-    Image im;
-    Point pos;
-    Point to;
-    Monster target;
+    protected Image im;
+    protected Point pos;
+    protected Point to;
+    protected Monster target;
     int power;
 
     public Bullet(Point from, Point to, Monster target, int power) {
@@ -28,35 +28,22 @@ public abstract class Bullet extends JPanel {
 
     private Point dau(Point from, Point to) {
         Point res = new Point(1, 1);
-        if (from.getX() - to.getX() > 0) res.setX(-1);
-        if (from.getY() - to.getY() > 0) res.setY(-1);
-        if (from.getX() - to.getY() == 0) res.setX(0);
-        if (from.getY() - to.getY() == 0) res.setY(0);
+        if (from.getX() > to.getX() +3) res.setX(-1);
+        if (from.getY() > to.getY() +3) res.setY(-1);
+        if (to.getX() >= from.getX() -3 && to.getX() <= from.getX() +3) res.setX(0);
+        if (to.getY() >= from.getY() -3 && to.getY() <= from.getY() +3) res.setY(0);
         return res;
     }
     private long time = System.currentTimeMillis();
-
     public void move() throws InterruptedException, IOException {
-
-        if (to == Point.ErrPoint) {
-            Player.bullets.remove(this);
-            return;
-        }
-
-
         if (System.currentTimeMillis() - time <=50) return;
         time = System.currentTimeMillis();
-
-        if (target == null) Player.bullets.remove(this);
 
         this.pos.setX(this.pos.getX() + dau(this.pos, to).getX() * speed);
         this.pos.setY(this.pos.getY() + dau(this.pos, to).getY() * speed);
 
         //this.pos.setX((int) (this.pos.getX() + dau(this.pos, to).getX() * speed *(1+ distance(this.pos, to.center()))));
-        //this.pos.setY((int) (this.pos.getY() + dau(this.pos, to).getY() * speed *(1+ distance(this.pos, to.center()))));
-
-
-        //System.out.println(pos.getX()+" "+pos.getY());
+        //this.pos.setY((int) (this.pos.getY() + dau(this.pos, to).getY() * speed *(1+ distance(this.pos, to.center())));
 
         Ellipse2D.Double range = new Ellipse2D.Double(
                 this.pos.getX() - 16,
@@ -81,30 +68,36 @@ public abstract class Bullet extends JPanel {
                 this.pos.getX() < 0 ||
                 this.pos.getY() <0) Player.bullets.remove(this);
     }
-
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
 
-        /* //DEBUG
-        g.drawRect(pos.getX(), pos.getY(), 24, 14);
+        if (GameFrame.Debug == GameFrame.Debuging.ON)
         g.drawOval(
                 this.pos.getX() -16,
                 this.pos.getY() -16,
                 64, 64
         );
 
-         */
-
     }
 
-    public static double distance(Point from, Point to){
-        return  Math.sqrt(
-                        Math.pow((from.getX() - to.getX()), 2)
-                        + Math.pow((from.getY() - to.getY()), 2)
-
-        );
+    public Monster getTarget() {
+        return target;
     }
 
+    public void setTarget(Monster target) {
+        this.target = target;
+    }
+
+    public void setTo(Point to) {
+        this.to = to;
+    }
 }
+
+
+
+
+
+
+
 
 

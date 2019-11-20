@@ -1,6 +1,6 @@
 package TowerDefense.GameEnitty.Monster;
 
-import TowerDefense.GameEnitty.Map.GameMap;
+import TowerDefense.GameEnitty.Tower.Bullet.Bullet;
 import TowerDefense.GamePlay.GameFrame;
 import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.MapManager;
@@ -15,28 +15,30 @@ public abstract class Monster extends JPanel {
     protected int speed;
     protected int armor;
     protected int reward;
-    protected Image im;
+    protected Image im, imR, imL;
 
-    protected int Direction;
     protected Point pos;
 
     protected int[][] checker =new int[12][16];
 
-    public Monster(Point pos, String path){
-        ImageIcon imageIcon = new ImageIcon(path);
-        im = imageIcon.getImage();
+    public Monster(Point pos){
         this.pos = pos;
-        for (int i =1; i<12; i++)
-            for (int j =0; j<16; j++)
-                checker[i][j] = 0;
+        im = imL;
+
+    }
+    public Point getPosition() {
+        return this.pos;
+    }
+    public Point getCentre() {
+        return new Point(this.pos.getX()+32, this.pos.getY()+32);
     }
 
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
         drawHealthBar(g);
-        //g.drawRect(pos.getX(), pos.getY(), 64, 64);
+        if (GameFrame.Debug == GameFrame.Debuging.ON)
+            g.drawRect(pos.getX(), pos.getY(), 64, 64);
     }
-
     public void move() throws Exception{
         if (MapManager.target.isTouched(this)) return;
 
@@ -45,26 +47,23 @@ public abstract class Monster extends JPanel {
 
         try {
             if (MapManager.mapper[i + 1].charAt(j) != '0' && checker[i+1][j] ==0) {
-                //moveDown();
                 this.pos.setY(this.pos.getY() + this.speed);
-
             }
             else if ((i > 0 && MapManager.mapper[i - 1].charAt(j) != '0' && checker[i-1][j] ==0)) {
                 this.pos.setY(this.pos.getY() - this.speed);
             }
             else if (MapManager.mapper[i].charAt(j + 1) != '0' && checker[i][j+1] == 0) {
-                //move right
+                this.im = this.imR;
                 this.pos.setX(this.pos.getX() + this.speed);
             }
 
             else if (MapManager.mapper[i].charAt(j - 1) != '0' && checker[i][j-1] ==0) {
-                //moveLeft()
+                this.im = this.imL;
                 this.pos.setX(this.pos.getX() - this.speed);
             }
             checker[i][j] = 1;
         } catch (Exception e) {}
     }
-
     public void Remove() {
 
         Player.monsters.remove(this);
@@ -74,16 +73,14 @@ public abstract class Monster extends JPanel {
             GameFrame.GAME_LEVEL++;
             GameFrame.gameState = GameFrame.GameState.STARTING;
         }
-    }
 
-    public Point getPosition() {
-        return this.pos;
+        for (Bullet bullet: Player.bullets) {
+            if (bullet.getTarget() == this) {
+                bullet.setTarget(Player.monsters.get(Player.monsters.size() - 1));
+                bullet.setTo(Player.monsters.get(Player.monsters.size() - 1).getPosition());
+            }
+        }
     }
-
-    public Point getCentre() {
-        return new Point(this.pos.getX()+32, this.pos.getY()+32);
-    }
-
     public void damage(int damage) {
         this.HP -= (damage - this.armor);
         if (HP <=0) {
@@ -92,7 +89,6 @@ public abstract class Monster extends JPanel {
             Player.Money += this.reward;
         }
     }
-
     public void drawHealthBar(Graphics g) {
         final int barMaxWidth = 48;
         int barHealth = (int)Math.ceil(((double)this.HP / this.maxHP) * barMaxWidth);
@@ -106,4 +102,15 @@ public abstract class Monster extends JPanel {
 
     }
 
+    public Image getImR() {
+        return imR;
+    }
+
+    public Image getImL() {
+        return imL;
+    }
+
+    public void setIm(Image im) {
+        this.im = im;
+    }
 }

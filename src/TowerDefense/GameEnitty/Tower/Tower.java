@@ -1,5 +1,6 @@
 package TowerDefense.GameEnitty.Tower;
 import TowerDefense.GameEnitty.Map.Point;
+import TowerDefense.GamePlay.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +27,11 @@ public abstract class Tower extends JPanel{
     }
     public void paint(Graphics g) {
         g.drawImage(im, pos.getX(), pos.getY(), this);
-        //drawRound(g);
+        if (GameFrame.Debug == GameFrame.Debuging.ON)
+        {
+            drawRound(g);
+            g.drawRect(pos.getX(), pos.getY(), 64, 64);
+        }
     }
 
     public abstract void fire();
@@ -37,7 +42,6 @@ public abstract class Tower extends JPanel{
                         + Math.pow((from.getY() - to.getY()), 2)
         );
     }
-
     public void setPos(int x, int y) {
         this.pos.setX(x);
         this.pos.setY(y);
@@ -45,13 +49,11 @@ public abstract class Tower extends JPanel{
     public Image getIm() {
         return this.im;
     }
-
     public int getPrice() {
         return price;
     }
-
-    public Point getCentre() {
-        return new Point(pos.getX()+32, pos.getY()+32);
+    public Point getPos() {
+        return pos;
     }
 
 }

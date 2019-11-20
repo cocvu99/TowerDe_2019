@@ -35,7 +35,10 @@ public class Target extends MapObject {
         ) {
             Player.Heart--;
             mon.Remove();
-            if (Player.Heart == 0 ) GameFrame.gameState = GameFrame.GameState.LOSING;
+            if (Player.Heart == 0 ) {
+                Thread.sleep(1000);
+                GameFrame.gameState = GameFrame.GameState.LOSING;
+            }
             return true;
         }
         return false;

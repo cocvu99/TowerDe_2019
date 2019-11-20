@@ -4,12 +4,15 @@ import TowerDefense.GameEnitty.Map.Point;
 
 public class tankerMonster extends Monster {
     public tankerMonster(Point pos) {
-        super(pos, "res/Monster/ghost1.png");
-        this.HP     = 1500;
+        super(pos);
+        this.imL    = MonsterImage.ghost1L;
+        this.imR    = MonsterImage.ghost1R;
+        this.im     = imL;
+        this.HP     = 3000;
         this.speed  = 1;
-        this.armor  = 10;
+        this.armor  = 20;
         this.reward = 50;
-        this.maxHP  = 1500;
+        this.maxHP  = HP;
     }
 
 

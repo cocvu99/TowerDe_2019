@@ -16,8 +16,10 @@ public class Point {
         this.y = p.getY();
     }
 
-    public Point center() {
-        return new Point(this.getX()+32, this.getY()+32);
+    public boolean equal(Point p) {
+        if (this.x != p.getX()) return false;
+        if (this.y != p.getY()) return false;
+        return true;
     }
 
     public int getX() {

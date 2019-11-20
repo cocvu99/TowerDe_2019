@@ -1,7 +1,6 @@
 package TowerDefense.GameEnitty.Map;
 
 import TowerDefense.GamePlay.GameFrame;
-import TowerDefense.GamePlay.Player;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,18 +10,19 @@ import java.util.List;
 
 public class MapManager {
 
-    public static Spaner spaner;
+    public static spawner spawner;
     public static Target target;
     public static String[] mapper =new String[12];
     public static String MonsterSpan;
 
-    private static void read(int Nlines, String file) throws IOException {
+    private static void read(int Nlines, String file) throws IOException, InterruptedException {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
                     new FileReader(file));
 
         } catch (Exception e) {
+            Thread.sleep(1000);
             GameFrame.gameState = GameFrame.GameState.WINNING;
         }
 
@@ -34,7 +34,7 @@ public class MapManager {
         reader.close();
     }
 
-    public static List<MapObject> updatePlayMapper() throws IOException {
+    public static List<MapObject> updatePlayMapper() throws IOException, InterruptedException {
         List<MapObject> MapObject = new ArrayList<>();
 
         MapManager.read(12, "res/Map/level/level"
@@ -50,8 +50,8 @@ public class MapManager {
                     MapObject.add(new Road(new Point(j*64, i*64)));
                 }
                 else if (mapper[i].charAt(j) == '8') {
-                    spaner =new Spaner(new Point(j*64, i*64));
-                    MapObject.add(spaner);
+                    spawner =new spawner(new Point(j*64, i*64));
+                    MapObject.add(spawner);
                 }
                 else if(mapper[i].charAt(j) == '9') {
                     target = new Target(new Point(j*64, i*64));
