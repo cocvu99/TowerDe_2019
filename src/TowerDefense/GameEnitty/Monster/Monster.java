@@ -19,12 +19,14 @@ public abstract class Monster extends JPanel {
     protected Image im, imR, imL;
     protected int extraMove;
     protected Point pos;
+    protected int numMoveLeft;
 
     protected int[][] checker =new int[12][16];
 
     public Monster(Point pos){
         this.pos = pos;
         im = imL;
+        numMoveLeft = 0;
     }
     public Point getPosition() {
         return this.pos;
@@ -66,12 +68,15 @@ public abstract class Monster extends JPanel {
             case RIGHT: moveRight(); break;
         }
     }
-    protected int numMoveLeft = 0;
+
     public void move() throws Exception {
 
         if (MapManager.target.isTouched(this)) return;
 
-        if (numMoveLeft-- > 0) doMove(previousMove);
+        if (numMoveLeft-- > 0) {
+            doMove(previousMove);
+            System.out.println("monster.java[move] "+numMoveLeft);
+        }
         else {
             try {
                 int j = (this.pos.getX() + 32) / 64;

@@ -2,7 +2,6 @@
 package TowerDefense.GamePlay;
 
 import TowerDefense.GameEnitty.Map.MapManager;
-import TowerDefense.GameEnitty.Monster.Monster;
 import TowerDefense.GameEnitty.Tower.*;
 import TowerDefense.GameEnitty.Map.Point;
 
@@ -13,19 +12,17 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class GameFrame extends JFrame implements MouseListener, KeyListener {
 
-    public static Debuging Debug = Debuging.ON;
-
+    public static Debuging Debug = Debuging.OFF;
+    public static boolean mute;
     public static GameFrame gameFrame;
     public static Player player;
     public static final int WINDOW_HEIGHT = 640;
     public static final int WINDOW_WITH   = 1324;
-    public static int GAME_LEVEL = 5;
+    public static int GAME_LEVEL = 1;
     public static Tower holdingTower;
     public static boolean pause;
 
@@ -115,6 +112,21 @@ public class GameFrame extends JFrame implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             pause = !pause;
+        }
+        else if (e.isControlDown() && e.isAltDown()) {
+            if (e.getKeyCode() == KeyEvent.VK_D) {
+                if (Debug == Debuging.ON) Debug = Debuging.OFF;
+                else Debug = Debuging.ON;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_M) {
+                mute = !mute;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_R) {
+                gameState = GameState.STARTING;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_Q) {
+                this.dispose();
+            }
         }
     }
 

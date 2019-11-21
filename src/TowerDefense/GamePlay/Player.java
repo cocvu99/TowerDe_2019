@@ -49,7 +49,7 @@ public class Player  extends JPanel implements Runnable {
 
     private void reset() {
         Heart = 10;
-        Money = 200;
+        Money = 500;
         towers.clear();
         monsters.clear();
         bullets.clear();
