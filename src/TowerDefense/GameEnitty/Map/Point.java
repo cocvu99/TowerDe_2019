@@ -18,8 +18,12 @@ public class Point {
 
     public boolean equal(Point p) {
         if (this.x != p.getX()) return false;
-        if (this.y != p.getY()) return false;
-        return true;
+        return this.y == p.getY();
+    }
+
+    public boolean equal(int x, int y) {
+        if (this.x != x || this.y != y) return false;
+        else return true;
     }
 
     public int getX() {

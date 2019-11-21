@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_towerde_2019" default="compile.module.towerde_2019">
+  <dirname property="module.towerde_2019.basedir" file="${ant.file.module_towerde_2019}"/>
+  
+  <property name="module.jdk.home.towerde_2019" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.towerde_2019" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.towerde_2019" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.towerde_2019" value="-encoding UTF-8 -source 12 -target 12 ${compiler.args}"/>
+  
+  <property name="towerde_2019.output.dir" value="${module.towerde_2019.basedir}/out/production/TowerDe_2019"/>
+  <property name="towerde_2019.testoutput.dir" value="${module.towerde_2019.basedir}/out/test/TowerDe_2019"/>
+  
+  <path id="towerde_2019.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="towerde_2019.module.production.classpath">
+    <path refid="${module.jdk.classpath.towerde_2019}"/>
+  </path>
+  
+  <path id="towerde_2019.runtime.production.module.classpath">
+    <pathelement location="${towerde_2019.output.dir}"/>
+  </path>
+  
+  <path id="towerde_2019.module.classpath">
+    <path refid="${module.jdk.classpath.towerde_2019}"/>
+    <pathelement location="${towerde_2019.output.dir}"/>
+  </path>
+  
+  <path id="towerde_2019.runtime.module.classpath">
+    <pathelement location="${towerde_2019.testoutput.dir}"/>
+    <pathelement location="${towerde_2019.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.towerde_2019">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.towerde_2019">
+    <patternset refid="excluded.from.module.towerde_2019"/>
+  </patternset>
+  
+  <path id="towerde_2019.module.sourcepath">
+    <dirset dir="${module.towerde_2019.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.towerde_2019" depends="compile.module.towerde_2019.production,compile.module.towerde_2019.tests" description="Compile module TowerDe_2019"/>
+  
+  <target name="compile.module.towerde_2019.production" depends="register.custom.compilers" description="Compile module TowerDe_2019; production classes">
+    <mkdir dir="${towerde_2019.output.dir}"/>
+    <javac2 destdir="${towerde_2019.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.towerde_2019}/javac">
+      <compilerarg line="${compiler.args.towerde_2019}"/>
+      <bootclasspath refid="towerde_2019.module.bootclasspath"/>
+      <classpath refid="towerde_2019.module.production.classpath"/>
+      <src refid="towerde_2019.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.towerde_2019"/>
+    </javac2>
+    
+    <copy todir="${towerde_2019.output.dir}">
+      <fileset dir="${module.towerde_2019.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.towerde_2019.tests" depends="register.custom.compilers,compile.module.towerde_2019.production" description="compile module TowerDe_2019; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.towerde_2019" description="cleanup module">
+    <delete dir="${towerde_2019.output.dir}"/>
+    <delete dir="${towerde_2019.testoutput.dir}"/>
+  </target>
+</project>

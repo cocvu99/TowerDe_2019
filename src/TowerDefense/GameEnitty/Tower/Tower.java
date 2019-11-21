@@ -1,6 +1,7 @@
 package TowerDefense.GameEnitty.Tower;
 import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GamePlay.GameFrame;
+import TowerDefense.GamePlay.SoundLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,8 @@ public abstract class Tower extends JPanel{
         this.im = imageIcon.getImage();
         this.pos= pos;
         this.lastFired = System.currentTimeMillis();
+
+        SoundLoader.play("towerBuilt.wav");
     }
     
 
@@ -26,7 +29,7 @@ public abstract class Tower extends JPanel{
         g.drawOval(this.pos.getX()-range/2+32,this.pos.getY()-range/2+32 , range, range);
     }
     public void paint(Graphics g) {
-        g.drawImage(im, pos.getX(), pos.getY(), this);
+        g.drawImage(im, pos.getX(), pos.getY(), 64, 64, this);
         if (GameFrame.Debug == GameFrame.Debuging.ON)
         {
             drawRound(g);

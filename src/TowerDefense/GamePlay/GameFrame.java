@@ -13,17 +13,19 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class GameFrame extends JFrame implements MouseListener, KeyListener {
 
-    public static Debuging Debug = Debuging.OFF;
+    public static Debuging Debug = Debuging.ON;
 
     public static GameFrame gameFrame;
     public static Player player;
     public static final int WINDOW_HEIGHT = 640;
     public static final int WINDOW_WITH   = 1324;
-    public static int GAME_LEVEL = 1;
+    public static int GAME_LEVEL = 5;
     public static Tower holdingTower;
     public static boolean pause;
 
@@ -125,12 +127,12 @@ public class GameFrame extends JFrame implements MouseListener, KeyListener {
         STARTING,
         PLAYING,
         WINNING,
-        LOSING;
+        LOSING
     }
 
     public enum Debuging {
         ON,
-        OFF;
+        OFF
     }
 
     public static GameState gameState;

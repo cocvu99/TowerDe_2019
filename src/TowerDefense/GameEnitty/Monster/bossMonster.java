@@ -1,8 +1,10 @@
 package TowerDefense.GameEnitty.Monster;
 
 import TowerDefense.GameEnitty.Map.Point;
+import TowerDefense.GamePlay.GameFrame;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class bossMonster extends Monster {
     public bossMonster(Point pos) {

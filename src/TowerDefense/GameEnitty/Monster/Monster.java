@@ -5,6 +5,7 @@ import TowerDefense.GamePlay.GameFrame;
 import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.MapManager;
 import TowerDefense.GameEnitty.Map.Point;
+import TowerDefense.GamePlay.SoundLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +17,7 @@ public abstract class Monster extends JPanel {
     protected int armor;
     protected int reward;
     protected Image im, imR, imL;
-
+    protected int extraMove;
     protected Point pos;
 
     protected int[][] checker =new int[12][16];
@@ -24,7 +25,6 @@ public abstract class Monster extends JPanel {
     public Monster(Point pos){
         this.pos = pos;
         im = imL;
-
     }
     public Point getPosition() {
         return this.pos;
@@ -34,37 +34,72 @@ public abstract class Monster extends JPanel {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(im, pos.getX(), pos.getY(), this);
+        g.drawImage(im, pos.getX(), pos.getY(), 64, 64, this);
         drawHealthBar(g);
         if (GameFrame.Debug == GameFrame.Debuging.ON)
             g.drawRect(pos.getX(), pos.getY(), 64, 64);
     }
-    public void move() throws Exception{
+
+    private enum MonsterMove {UP, DOWN, LEFT, RIGHT;}
+    private MonsterMove previousMove ;
+
+    protected void moveLeft() {
+        this.im = this.imL;
+        this.pos.setX(this.pos.getX() - this.speed);
+    }
+    protected void moveRight() {
+        this.im = this.imR;
+        this.pos.setX(this.pos.getX() + this.speed);
+    }
+    protected void moveUp() {
+        this.pos.setY(this.pos.getY() - this.speed);
+    }
+    protected void moveDown() {
+        this.pos.setY(this.pos.getY() + this.speed);
+    }
+
+    private void doMove(MonsterMove mv) {
+        switch (mv) {
+            case UP: moveUp(); break;
+            case DOWN: moveDown(); break;
+            case LEFT: moveLeft(); break;
+            case RIGHT: moveRight(); break;
+        }
+    }
+    protected int numMoveLeft = 0;
+    public void move() throws Exception {
+
         if (MapManager.target.isTouched(this)) return;
 
-        int j = (this.pos.getX() + 32)/ 64;
-        int i = (this.pos.getY() + 32)/ 64;
+        if (numMoveLeft-- > 0) doMove(previousMove);
+        else {
+            try {
+                int j = (this.pos.getX() + 32) / 64;
+                int i = (this.pos.getY() + 32) / 64;
 
-        try {
-            if (MapManager.mapper[i + 1].charAt(j) != '0' && checker[i+1][j] ==0) {
-                this.pos.setY(this.pos.getY() + this.speed);
+                if (MapManager.mapper[i + 1].charAt(j) != '0' && checker[i + 1][j] == 0) {
+                    doMove(MonsterMove.DOWN);
+                    previousMove = MonsterMove.DOWN;
+                } else if ((i > 0 && MapManager.mapper[i - 1].charAt(j) != '0' && checker[i - 1][j] == 0)) {
+                    doMove(MonsterMove.UP);
+                    previousMove = MonsterMove.UP;
+                } else if (MapManager.mapper[i].charAt(j + 1) != '0' && checker[i][j + 1] == 0) {
+                    doMove(MonsterMove.RIGHT);
+                    previousMove = MonsterMove.RIGHT;
+                } else if (MapManager.mapper[i].charAt(j - 1) != '0' && checker[i][j - 1] == 0) {
+                    doMove(MonsterMove.LEFT);
+                    previousMove = MonsterMove.LEFT;
+                }
+                numMoveLeft = extraMove;
+                checker[i][j] = 1;
+            } catch (Exception e) {
+                System.out.println("monster.java[move]" + e.getMessage());
             }
-            else if ((i > 0 && MapManager.mapper[i - 1].charAt(j) != '0' && checker[i-1][j] ==0)) {
-                this.pos.setY(this.pos.getY() - this.speed);
-            }
-            else if (MapManager.mapper[i].charAt(j + 1) != '0' && checker[i][j+1] == 0) {
-                this.im = this.imR;
-                this.pos.setX(this.pos.getX() + this.speed);
-            }
-
-            else if (MapManager.mapper[i].charAt(j - 1) != '0' && checker[i][j-1] ==0) {
-                this.im = this.imL;
-                this.pos.setX(this.pos.getX() - this.speed);
-            }
-            checker[i][j] = 1;
-        } catch (Exception e) {}
+        }
     }
     public void Remove() {
+
+        SoundLoader.play("death.wav");
 
         Player.monsters.remove(this);
 
@@ -76,8 +111,8 @@ public abstract class Monster extends JPanel {
 
         for (Bullet bullet: Player.bullets) {
             if (bullet.getTarget() == this) {
-                bullet.setTarget(Player.monsters.get(Player.monsters.size() - 1));
-                bullet.setTo(Player.monsters.get(Player.monsters.size() - 1).getPosition());
+                bullet.setTarget(Player.monsters.get(Player.monsters.size()-1));
+                bullet.setTo(Player.monsters.get(Player.monsters.size()-1).pos);
             }
         }
     }
@@ -88,28 +123,21 @@ public abstract class Monster extends JPanel {
             this.Remove();
             Player.Money += this.reward;
         }
+
+        SoundLoader.play("hit.wav");
     }
     public void drawHealthBar(Graphics g) {
         final int barMaxWidth = 48;
         int barHealth = (int)Math.ceil(((double)this.HP / this.maxHP) * barMaxWidth);
 
         g.setColor(Color.gray);
-        g.fillRect(((int) getPosition().getX()) + 12,
-                ((int) getPosition().getY()) , barMaxWidth, 5);
+        g.fillRect(getPosition().getX() + 12,
+                getPosition().getY(), barMaxWidth, 5);
         g.setColor(Color.blue);
-        g.fillRect(((int) getPosition().getX()+ 12) ,
-                ((int) getPosition().getY()) , barHealth, 5);
+        g.fillRect((getPosition().getX() + 12) ,
+                getPosition().getY(), barHealth, 5);
 
     }
-
-    public Image getImR() {
-        return imR;
-    }
-
-    public Image getImL() {
-        return imL;
-    }
-
     public void setIm(Image im) {
         this.im = im;
     }

@@ -1,6 +1,5 @@
 package TowerDefense.GameEnitty.Tower.Bullet;
 
-import TowerDefense.GameEnitty.Map.MapManager;
 import TowerDefense.GamePlay.Player;
 import TowerDefense.GameEnitty.Map.Point;
 import TowerDefense.GameEnitty.Monster.Monster;
@@ -26,7 +25,7 @@ public abstract class Bullet extends JPanel {
         this.to = to;
     }
 
-    private Point dau(Point from, Point to) {
+    public static Point directionVector(Point from, Point to) {
         Point res = new Point(1, 1);
         if (from.getX() > to.getX() +3) res.setX(-1);
         if (from.getY() > to.getY() +3) res.setY(-1);
@@ -35,15 +34,17 @@ public abstract class Bullet extends JPanel {
         return res;
     }
     private long time = System.currentTimeMillis();
+
     public void move() throws InterruptedException, IOException {
         if (System.currentTimeMillis() - time <=50) return;
         time = System.currentTimeMillis();
 
-        this.pos.setX(this.pos.getX() + dau(this.pos, to).getX() * speed);
-        this.pos.setY(this.pos.getY() + dau(this.pos, to).getY() * speed);
+        Point directVector = directionVector(this.pos, to);
+        this.pos.setX(this.pos.getX() + directVector.getX() * speed);
+        this.pos.setY(this.pos.getY() + directVector.getY() * speed);
 
-        //this.pos.setX((int) (this.pos.getX() + dau(this.pos, to).getX() * speed *(1+ distance(this.pos, to.center()))));
-        //this.pos.setY((int) (this.pos.getY() + dau(this.pos, to).getY() * speed *(1+ distance(this.pos, to.center())));
+            //this.pos.setX((int) (this.pos.getX() + dau(this.pos, to).getX() * speed *(1+ distance(this.pos, to.center()))));
+            //this.pos.setY((int) (this.pos.getY() + dau(this.pos, to).getY() * speed *(1+ distance(this.pos, to.center())));
 
         Ellipse2D.Double range = new Ellipse2D.Double(
                 this.pos.getX() - 16,
@@ -51,34 +52,24 @@ public abstract class Bullet extends JPanel {
                 64, 64
         );
 
-        //kiểm tra va chạm
-        for (Monster mon : Player.monsters)  {
-            if(range.contains(new java.awt.Point(
+            //kiểm tra va chạm
+        for (Monster mon : Player.monsters) {
+            if (range.contains(new java.awt.Point(
                     mon.getPosition().getX() + 32,
-                    mon.getPosition().getY() + 32)))
-            {
+                    mon.getPosition().getY() + 32))) {
                 Player.bullets.remove(this);
                 mon.damage(power);
                 break;
             }
         }
-        //xóa khi ra khỏi màn hình
+            //xóa khi ra khỏi màn hình
         if (this.pos.getX() > GameFrame.WINDOW_WITH ||
                 this.pos.getY() > GameFrame.WINDOW_HEIGHT ||
                 this.pos.getX() < 0 ||
-                this.pos.getY() <0) Player.bullets.remove(this);
+                this.pos.getY() < 0) Player.bullets.remove(this);
     }
-    public void paint(Graphics g) {
-        g.drawImage(im, pos.getX(), pos.getY(), this);
 
-        if (GameFrame.Debug == GameFrame.Debuging.ON)
-        g.drawOval(
-                this.pos.getX() -16,
-                this.pos.getY() -16,
-                64, 64
-        );
-
-    }
+    public abstract void paint(Graphics g);
 
     public Monster getTarget() {
         return target;
@@ -88,8 +79,16 @@ public abstract class Bullet extends JPanel {
         this.target = target;
     }
 
+    public Point getPos() {
+        return pos;
+    }
+
     public void setTo(Point to) {
         this.to = to;
+    }
+    public void setTo( int x, int y) {
+        this.pos.setX(x);
+        this.pos.setY(y);
     }
 }
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class KnightTrap extends Tower {
     public KnightTrap(Point pos) {
-        super(pos, "res/Map/Knight Post Front (1).png");
+        super(pos, "res/Map/KnightTrap.png");
         this.price = 200;
         this.range = 3*64;
         this.damage = 350;

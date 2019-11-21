@@ -66,7 +66,7 @@ public class Player  extends JPanel implements Runnable {
                     try {
                         loadMapper();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println("player.java[paint-try]"+e.getMessage());
                     }
                     g.drawImage(new ImageIcon("res/Map/Screen/start.png").getImage(), 0, 0, this);
                     g.setColor(Color.WHITE);
@@ -138,9 +138,9 @@ public class Player  extends JPanel implements Runnable {
                     if (GameFrame.holdingTower != null)
                         g.drawImage(GameFrame.holdingTower.getIm(),
                                 (int) getMousePosition().getX(),
-                                (int) getMousePosition().getY(), null);
+                                (int) getMousePosition().getY(),64, 64,  null);
 
-                    g.drawImage((new ImageIcon("res/Monster/coin.gif").getImage()), 1180, 120,null);
+                    g.drawImage((new ImageIcon("res/Tile/coin.gif").getImage()), 1180, 120, 64, 64,null);
 
                     g.setColor(Color.WHITE);
                     g.setFont(new Font("Consolas", Font.BOLD, 20));
@@ -191,11 +191,10 @@ public class Player  extends JPanel implements Runnable {
                     createMonster(MapManager.MonsterSpan.charAt(i++));
                     time = System.currentTimeMillis();
                 }
-                System.out.println(i+" "+ MapManager.MonsterSpan.length());
 
                 repaint();
 
-                thread.sleep(50);
+                Thread.sleep(50);
             } catch (Exception e) {
                 System.out.println("Player.java[run]" + e.getMessage());
             }

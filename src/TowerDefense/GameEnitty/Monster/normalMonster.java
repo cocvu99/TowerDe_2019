@@ -13,6 +13,7 @@ public class normalMonster extends Monster{
         this.armor      = 10;
         this.reward     = 30;
         this.maxHP      = HP;
+        this.extraMove  = 16;
     }
 
 }

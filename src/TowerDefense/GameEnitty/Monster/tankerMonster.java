@@ -13,6 +13,7 @@ public class tankerMonster extends Monster {
         this.armor  = 20;
         this.reward = 50;
         this.maxHP  = HP;
+        this.extraMove = 32;
     }
 
 

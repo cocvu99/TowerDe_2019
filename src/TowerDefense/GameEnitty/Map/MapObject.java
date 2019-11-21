@@ -8,7 +8,7 @@ public abstract class MapObject extends JPanel {
     protected Point pos;
 
     public void paint(Graphics g) {
-        g.drawImage(this.im, this.pos.getX(), this.pos.getY(), this);
+        g.drawImage(this.im, this.pos.getX(), this.pos.getY(),64,64, this);
         //something
     }
 

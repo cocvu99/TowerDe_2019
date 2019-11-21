@@ -18,7 +18,7 @@ public class Target extends MapObject {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(this.im, this.pos.getX(), this.pos.getY(), this);
+        g.drawImage(this.im, this.pos.getX(), this.pos.getY(),64,64, this);
     }
 
     public boolean isTouched(Monster mon) throws Exception{
