@@ -27,9 +27,8 @@ public class AdvanceTower extends Tower {
             lastFired = timeNow;
             List<Monster> monsters = Player.monsters;
                 for (Monster mon: Player.monsters) {
-                    if (distance(mon.getCentre(), this.pos) < (double) range - 20) {
-
-                        SoundLoader.play("fireball.wav");
+                    if (distance(mon.getCentre(), this.getCentre()) <= (double) range/2 ||
+                            distance(new Point (mon.getPosition().getX() +64, mon.getPosition().getY() +64), this.getCentre()) <= (double) range/2) {
 
                         Player.bullets.add(new FireBall(
                                 new Point(this.pos.getX() + 32, this.pos.getY() + 32),

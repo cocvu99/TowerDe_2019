@@ -75,13 +75,19 @@ public class GameFrame extends JFrame implements MouseListener, KeyListener {
                 if (tower.getPos().equal(p)) {
                     Player.Money += tower.getPrice()*0.5;
                     Player.towers.remove(tower);
-                    holdingTower = null;
                 }
+                holdingTower = null;
             }
         }
-        else if (holdingTower != null )
+        else if ((holdingTower != null) && !(holdingTower instanceof sellingTower))
             holdingTower.setPos(x, y);
         try {
+            for (Tower tower: Player.towers) {
+                if (tower.getPos().equal(new Point(e.getX(), e.getY()))) {
+                    holdingTower = null;
+                    break;
+                }
+            }
             if (MapManager.mapper[y / 64].charAt(x / 64) == '0') {
                 if (Player.Money - holdingTower.getPrice() >= 0) {
                     Player.towers.add(holdingTower);
@@ -126,6 +132,20 @@ public class GameFrame extends JFrame implements MouseListener, KeyListener {
             }
             if (e.getKeyCode() == KeyEvent.VK_Q) {
                 this.dispose();
+            }
+            if (Debug == Debuging.ON && e.getKeyCode() == KeyEvent.VK_H) {
+                Player.Money += 100;
+            }
+            if (Debug == Debuging.ON && e.getKeyCode() == KeyEvent.VK_W) {
+                player.monsters.clear();
+            }
+            if (Debug == Debuging.ON && e.getKeyCode() == KeyEvent.VK_N) {
+                GAME_LEVEL++;
+            }
+            if (Debug == Debuging.ON && e.getKeyCode() == KeyEvent.VK_C) {
+                Player.monsters.clear();
+                Player.towers.clear();
+                Player.bullets.clear();
             }
         }
     }

@@ -28,7 +28,8 @@ public class KnightTrap extends Tower {
             List<Monster> monsters = Player.monsters;
 
             for (Monster mon: Player.monsters) {
-                if (distance(mon.getCentre(), this.pos) < (double) range) {
+                if (distance(mon.getCentre(), this.getCentre()) <= (double) range/2 ||
+                        distance(new Point (mon.getPosition().getX() +64, mon.getPosition().getY() +64), this.getCentre()) <= (double) range/2) {
 
                     //SoundLoader.play("fireshoot.wav");
 

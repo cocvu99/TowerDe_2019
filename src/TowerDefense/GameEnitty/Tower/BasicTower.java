@@ -27,7 +27,8 @@ public class BasicTower extends Tower {
             lastFired = timeNow;
             List<Monster> monsters = Player.monsters;
             for (Monster mon: Player.monsters) {
-                if (distance(mon.getCentre(), this.pos) < (double) range - 80) {
+                if (distance(mon.getCentre(), this.getCentre()) <= (double) range/2 ||
+                        distance(new Point (mon.getPosition().getX() +64, mon.getPosition().getY() +64), this.getPos()) <= (double) range/2) {
 
                     //SoundLoader.play("fireshoot.wav");
 

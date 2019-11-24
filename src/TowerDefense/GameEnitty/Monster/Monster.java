@@ -75,7 +75,7 @@ public abstract class Monster extends JPanel {
 
         if (numMoveLeft-- > 0) {
             doMove(previousMove);
-            System.out.println("monster.java[move] "+numMoveLeft);
+            //System.out.println("monster.java[move] "+numMoveLeft);
         }
         else {
             try {
